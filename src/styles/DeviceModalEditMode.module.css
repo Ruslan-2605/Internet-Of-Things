@@ -1,0 +1,146 @@
+@media (max-width: 750px){
+    .modalBody{
+        width: 100%;
+        height: 100%;
+    }
+    .lastSeen{   
+        bottom: 5px;
+        right: 5px;
+        position: fixed;   
+    }
+}
+@media (min-width: 751px){
+    .modalBody{
+        max-width: 670px;
+        min-height: 670px;
+        border-radius: 8px;
+    }
+    .lastSeen{   
+        bottom: 12px;
+        right: 12px;
+        position: absolute;   
+    }
+
+}
+
+.modalWrapper.open{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+
+}
+.modalWrapper.close{
+    display:none;
+}
+
+.modalBody{
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: #fff;
+    width: 100%;
+    overflow-x: auto;   
+    margin: 0;
+    z-index: 1000;
+}
+.title{
+    font-size: 50px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+    background-color: #b3294e;
+    width: 100%;
+    min-height: 150px; 
+    font-weight: 700;
+ }
+.btnClose{
+    position: absolute;
+    top: 13px;
+    right: 13px;
+    color: #fff;
+    background-color: #b3294e;
+}
+.content{
+    display: flex; 
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+.icons{
+    display: flex;
+    position: absolute;
+    top: 87px;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    box-sizing: border-box;
+}
+.btnCopy{
+    color: #fff;
+    background-color: #b3294e;
+    margin-left: 15px;
+}
+.activeState{
+    margin-right: 15px;
+    color: #fff;
+    background-color: #b3294e;
+    cursor: initial;
+    text-transform: capitalize;
+    letter-spacing: 1.5px;
+}
+.arrowBackIcon{
+    position: absolute;
+    top: 13px;
+    left: 13px;
+    color: #fff;
+    background-color: #b3294e;
+}
+.states{
+    display:flex;
+    width: 80%;
+    flex-direction: column;
+    margin-top: 20px;
+    justify-content: center;
+    align-items: center;
+}
+.state{
+    width: 100%;
+    height: 35px;
+    display:flex;
+    justify-content: space-between;
+    margin: auto 0;
+    align-items: center;
+    vertical-align: center;
+    border-radius: 6px;
+    color: #b3294e;
+    font-weight: 600;
+    background-color: #f5f5f5;
+    margin-top: 10px;
+}
+.state:first-child{
+    margin-top: 0;
+}
+.state:hover{
+    background-color: #b3294e;
+    color: white
+}
+.state p{
+    margin-left: 15px;
+}
+.state p:last-child{
+   margin-right: 15px;
+}
+.state p img{
+    width: 70px;
+    margin-right: -25px;
+}

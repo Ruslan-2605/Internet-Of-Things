@@ -1,0 +1,33 @@
+.device{ 
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    width: 200px;
+    height: 130px;
+    background-color: #fff;
+    position: relative;
+}
+
+.deviceInfo{
+    margin: 15px;
+}
+
+.deviceInfo hr{
+    border: 1px solid rgba(0, 0, 0, 0.1)
+}
+
+.name{
+    font-size: 16px;
+    font-weight: 700;
+    text-align: left;
+    text-transform: capitalize;  
+    padding: 2px;
+    z-index: 2;
+    color: #b3294e;
+}
+.openInModal{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: #fff;
+}
