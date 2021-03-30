@@ -11,10 +11,10 @@ import styles from "../../styles/Chart.module.css";
 import { extent } from 'd3-array';
 
 const width = 960;
-const height = 1000;
-const margin = { top: 50, right: 30, bottom: 150, left: 130 };
+const height = 500;
+const margin = { top: 20, right: 0, bottom: 90, left: 100 };
 
-export const Chart = () => {
+export const Chart = ({ containerRef }) => {
 
     const data = useData();
     if (!data) {
@@ -46,41 +46,44 @@ export const Chart = () => {
 
     const yScale = scaleLinear({
         domain: extent(data, yValue),
-        range: [innerWidth, 0],
+        range: [innerHeight, 0],
         nice: true,
     });
 
     return (
-        <svg width={width} height={height}>
-            <g transform={`translate(${margin.left},${margin.top})`}>
+        <div className={styles.chart}>
+            <svg width={width} height={height}>
+                <g transform={`translate(${margin.left},${margin.top})`}>
 
-                <GridRows scale={yScale} width={innerWidth} height={innerHeight} stroke="#e0e0e0" />
-                {/* <GridColumns scale={xScale} width={innerWidth} height={innerHeight} stroke="#e0e0e0" /> */}
+                    <GridRows scale={yScale} width={innerWidth} height={innerHeight} stroke="#e0e0e0" />
+                    {/* <GridColumns scale={xScale} width={innerWidth} height={innerHeight} stroke="#e0e0e0" /> */}
 
-                <AxisBottom
-                    top={innerHeight}
-                    scale={xScale}
-                    tickFormat={xAxisTickFormat}
-                    tickValues={axisBottomTickValue.map(d => d.time)}
-                    label="Time"
-                    labelClassName={styles.axisLabel}
-                    labelOffset={40}
-                />
-                <AxisLeft
-                    scale={yScale}
-                    label="Value"
-                    labelClassName={styles.axisLabel}
-                    labelOffset={50}
-                />
-                <Marks
-                    data={data}
-                    xScale={xScale}
-                    yScale={yScale}
-                    xValue={xValue}
-                    yValue={yValue}
-                    tooltipFormat={xAxisTickFormat}
-                />
-            </g>
-        </svg >
+                    <AxisBottom
+                        top={innerHeight}
+                        scale={xScale}
+                        tickFormat={xAxisTickFormat}
+                        tickValues={axisBottomTickValue.map(d => d.time)}
+                        label="Time"
+                        labelClassName={styles.axisLabel}
+                        labelOffset={40}
+                    />
+                    <AxisLeft
+                        scale={yScale}
+                        label="Value"
+                        labelClassName={styles.axisLabel}
+                        labelOffset={50}
+                    />
+                    <Marks
+                        margin={margin}
+                        data={data}
+                        xScale={xScale}
+                        yScale={yScale}
+                        xValue={xValue}
+                        yValue={yValue}
+                        tooltipFormat={xAxisTickFormat}
+                    />
+                </g>
+            </svg >
+        </div>
     )
 }

@@ -20,6 +20,7 @@ export const Marks = ({
                 x={d => xScale(xValue(d))}
                 y={d => yScale(yValue(d))}
             />
+
             {
                 data.map((d, key) => (
                     <circle key={key} cx={xScale(xValue(d))} cy={yScale(yValue(d))} r={circleRadius}>
