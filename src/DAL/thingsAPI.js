@@ -1,8 +1,4 @@
-import * as axios from "axios";
-
-let instance = axios.create({
-    baseURL: "http://localhost:8080/",
-});
+import { instance } from "./instance";
 
 export const thingsAPI = {
 
@@ -33,10 +29,37 @@ export const thingsAPI = {
             })
     },
 
-    setState(state, token) {
+    setStateDevice(state, token) {
         return instance
             .post(`deviceState/${token}?state=${state}`)
             .then((response) => response);
+    },
+
+    createSensor(sensorForm, token) {
+        return instance
+            .post(`crud/sensor`, sensorForm, { 'headers': { 'Authorization': token } })
+            .then((response) => response.data);
+    },
+
+    updateSensor(sensorForm, token, id) {
+        return instance
+            .put(`crud/sensor/${id}`, sensorForm, { 'headers': { 'Authorization': token } })
+            .then((response) => response.data);
+    },
+
+    deleteSensor(id, token) {
+        return instance
+            .delete(`crud/sensor/${id}`,
+                { 'headers': { 'Authorization': token } })
+            .then((response) => {
+                return response
+            })
+    },
+
+    getPiece(token, fromTime, toTime) {
+        return instance
+            .get(`sensor/value/${token}?from=${fromTime}&to=${toTime}`)
+            .then((response) => response.data);
     },
 
     getPaginationInfo(project, token) {

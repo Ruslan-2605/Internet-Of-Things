@@ -15,3 +15,13 @@
     width: 100%;
     margin-top: 40px;
  }
+ .tooltip{
+  stroke: #635F5D;
+  stroke-width: 20px;
+  z-index: 2000;
+  opacity:1;
+}
+ .active {
+   opacity: 0;
+   stroke-width: 1px;
+ }

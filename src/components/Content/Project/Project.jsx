@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "../../../styles/Project.module.css";
-import { useHistory, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getActiveThingsPage, getPaginationThingsInfo, getThings } from "../../../redux/selectors/thingsSelector";
 import { getUserToken } from "../../../redux/selectors/authSelector";
@@ -15,13 +15,14 @@ import CreateIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import { withAuthRedirect } from "../../../HOC/withAuthRedirect";
-import { CreateDeviceModal } from "./Device/CreateDeviceModal";
+import { CreateDeviceModal } from "./Device/Modals/CreateDeviceModal";
 import { Pagination } from "../../utils/Pagination";
-import * as queryString from "query-string";
+import { CreateSensorForm } from "../Project/Sensor/Forms/CreateSensorForm";
 import { setError } from "../../../redux/reducers/errorsReducer";
 
 export const Project = withAuthRedirect(withRouter((props) => {
 
+    // желательно заменить HOC на hook
     let id = props.match.params.projectId;
 
     const dispatch = useDispatch();
@@ -62,6 +63,9 @@ export const Project = withAuthRedirect(withRouter((props) => {
     // Состояние модального окна Update Project
     const [isUpdateProject, setUpdateProject] = useState(false);
 
+    // Состояние модального окна Update Project
+    const [isCreateSensor, setCreateSensor] = useState(false);
+
     const deleteProject = (id, token) => {
         dispatch(deleteProjectThunkCreator(id, token))
     }
@@ -76,7 +80,6 @@ export const Project = withAuthRedirect(withRouter((props) => {
 
             <div className={styles.projectHeader}>
                 <div className={styles.name}>{project.name}</div>
-
                 <nav>
                     <div className={styles.dropdown}>
                         <div className={styles.icon}>
@@ -85,23 +88,39 @@ export const Project = withAuthRedirect(withRouter((props) => {
                         </div>
                         <div className={styles.dropdownMenu}>
                             <ul className={styles.submenu}>
-                                <li><button onClick={() => {
-                                    setCreateDevice(true)
-                                }}><AddIcon />
-                                    <div>Add</div>
-                                </button></li>
-                                <li><button onClick={() => {
-                                    setUpdateProject(true)
-                                }}>
-                                    <CreateIcon />
-                                    <div>Edit</div>
-                                </button></li>
-                                <li><button onClick={() => {
-                                    deleteProject(id, token)
-                                }}>
-                                    <DeleteIcon />
-                                    <div>Delete</div>
-                                </button></li>
+
+                                <li>
+                                    <button onClick={() => {
+                                        setCreateDevice(true)
+                                    }}>
+                                        <AddIcon /><div>Add Device</div>
+                                    </button>
+                                </li>
+
+                                <li>
+                                    <button onClick={() => {
+                                        setCreateSensor(true)
+                                    }}>
+                                        <AddIcon /> <div>Add Sensor</div>
+                                    </button>
+                                </li>
+
+                                <li>
+                                    <button onClick={() => {
+                                        setUpdateProject(true)
+                                    }}>
+                                        <CreateIcon /> <div>Edit</div>
+                                    </button>
+                                </li>
+
+                                <li>
+                                    <button onClick={() => {
+                                        deleteProject(id, token)
+                                    }}>
+                                        <DeleteIcon /> <div>Delete</div>
+                                    </button>
+                                </li>
+
                             </ul>
                         </div>
                     </div>
@@ -119,7 +138,12 @@ export const Project = withAuthRedirect(withRouter((props) => {
             />
 
             <div className={styles.things}>{things.map((thing) => {
-                return <Device thing={thing} key={thing.entity.id} />
+                if (thing.entity === "device") {
+                    return <Device thing={thing} key={thing.entity.id} />
+                } else if (thing.entity === "sensor") {
+                    //sensor
+                    console.log("sensor founded")
+                }
             })}
             </div>
 
@@ -127,6 +151,10 @@ export const Project = withAuthRedirect(withRouter((props) => {
 
             <Modal isModal={isUpdateProject} setModal={setUpdateProject} title="Update Project">
                 <UpdateProjectForm />
+            </Modal>
+
+            <Modal isModal={isCreateSensor} setModal={setCreateSensor} title="Create Sensor">
+                <CreateSensorForm />
             </Modal>
         </div >
 

@@ -14,9 +14,7 @@ import { getIconSelected } from "../../redux/selectors/projectsSelector";
 
 export const NavbarComponent = (props) => {
     return (
-        <div className={styles.navbar}>
-            <NavbarIcons />
-        </div >
+        <NavbarIcons className={styles.navbar} />
     );
 };
 
@@ -29,13 +27,13 @@ export const NavbarIcons = () => {
         dispatch(setIconActionCreator(icon))
     }
     return (
-        <>
+        <div className={styles.navbar}>
             {isAuth ?
                 <NavbarIfAuthTrue iconSelected={iconSelected} setIcon={setIcon} />
                 :
                 <NavbarIfAuthFalse iconSelected={iconSelected} setIcon={setIcon} />
             }
-        </>
+        </div>
     )
 }
 

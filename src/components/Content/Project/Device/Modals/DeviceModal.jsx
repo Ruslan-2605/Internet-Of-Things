@@ -1,22 +1,20 @@
 import React, { useState } from "react";
-import styles from "../../../../styles/DeviceModal.module.css";
+import styles from "../../../../../styles/DeviceModal.module.css";
 import CloseIcon from '@material-ui/icons/Close';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
 import { useDispatch, useSelector } from "react-redux";
-import { getActiveThingsPage, getPage } from "../../../../redux/selectors/thingsSelector";
-import { getProjectViewed } from "../../../../redux/selectors/projectsSelector";
-import { getUserToken } from "../../../../redux/selectors/authSelector";
-import { deleteDeviceThunkCreator } from "../../../../redux/reducers/thingsReducer";
+import { getActiveThingsPage } from "../../../../../redux/selectors/thingsSelector";
+import { getProjectViewed } from "../../../../../redux/selectors/projectsSelector";
+import { getUserToken } from "../../../../../redux/selectors/authSelector";
 import CopyToClipboard from "react-copy-to-clipboard";
-import { getTextIsCopied } from "../../../utils/getTextIsCopied";
-import { setStateDeviceThunkCreator } from "../../../../redux/reducers/thingsReducer";
+import { getTextIsCopied } from "../../../../utils/getTextIsCopied";
+import { setStateDeviceThunkCreator, deleteDeviceThunkCreator } from "../../../../../redux/reducers/thingsReducer";
 import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
-import fetching from "../../../../images/fetching.gif"
-import { LastActive } from "../../../utils/LastActive.jsx";
-import { setErrors } from "../../../utils/setErrors";
-import { setErrorActionCreator } from "../../../../redux/reducers/errorsReducer";
+import fetching from "../../../../../images/fetching.gif"
+import { LastActive } from "../../../../utils/LastActive.jsx";
+import { setErrorActionCreator } from "../../../../../redux/reducers/errorsReducer";
 
 export const DeviceModal = (props) => {
 

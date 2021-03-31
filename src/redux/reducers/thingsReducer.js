@@ -1,4 +1,3 @@
-import { ContactSupportOutlined } from "@material-ui/icons";
 import { setErrors } from "../../components/utils/setErrors";
 import { thingsAPI } from "../../DAL/thingsAPI";
 import { setErrorActionCreator } from "./errorsReducer";
@@ -6,16 +5,20 @@ import { setErrorActionCreator } from "./errorsReducer";
 const SET_THINGS = "SET-THINGS";
 const CREATE_DEVICE = "CREATE-DEVICE";
 const UPDATE_DEVICE = "UPDATE-DEVICE";
-const SET_PAGE_DEVICE = "SET-PAGE-DEVICE";
-const SET_STATE = "SET-STATE";
+const SET_PAGE_THINGS = "SET-PAGE-THINGS";
+const SET_STATE_DEVICE = "SET-STATE-DEVICE";
 const SET_INITIAL_STATE = "SET-INITIAL-STATE";
 const SET_PAGINATION_THINGS_INFO = "SET-PAGINATION-THINGS-INFO";
+const CREATE_SENSOR = "CREATE-SENSOR";
+const UPDATE_SENSOR = "UPDATE-SENSOR";
+const SET_SENSOR_PIECE_VALUES = "SET-SENSOR-PIECE-VALUES";
 const LOGOUT = "LOGOUT";
 
 const initialState = {
     things: [],
     page: 1,
     paginationInfo: {},
+    sensorPieceValues: []
 };
 
 export const thingsReducer = (state = initialState, action) => {
@@ -54,13 +57,13 @@ export const thingsReducer = (state = initialState, action) => {
                 })
             };
 
-        case SET_PAGE_DEVICE:
+        case SET_PAGE_THINGS:
             return {
                 ...state,
                 page: action.data,
             };
 
-        case SET_STATE:
+        case SET_STATE_DEVICE:
             return {
                 ...state,
                 things: state.things.map((thing) => {
@@ -79,9 +82,41 @@ export const thingsReducer = (state = initialState, action) => {
                 paginationInfo: action.data,
             };
 
+        case CREATE_SENSOR:
+            return {
+                ...state,
+                things: [
+                    ...state.things,
+                    {
+                        "type": "sensor",
+                        "entity": {
+                            ...action.data
+                        }
+                    },
+                ],
+            };
+
+        case UPDATE_SENSOR:
+            return {
+                ...state,
+                things: state.things.map((thing) => {
+                    switch (thing.type === "sensor") {
+                        case thing.entity.id === action.data.id:
+                            return { ...thing, ...{ "entity": { ...action.data } } }
+                        default:
+                            return thing;
+                    }
+                })
+            };
+
+        case SET_SENSOR_PIECE_VALUES:
+            return {
+                ...state,
+                sensorPieceValues: action.data
+            }
+
         case SET_INITIAL_STATE:
             return initialState;
-
 
         case LOGOUT:
             return initialState;
@@ -115,14 +150,14 @@ const updateDevice = (device) => {
 
 const setPage = (page) => {
     return {
-        type: "SET-PAGE-DEVICE",
+        type: "SET-PAGE-THINGS",
         data: page
     }
 }
 
 const setState = (state, token) => {
     return {
-        type: "SET-STATE",
+        type: "SET-STATE-DEVICE",
         state: state,
         token: token
     }
@@ -141,6 +176,27 @@ const setPaginationInfo = (info) => {
     }
 }
 
+const createSensor = (response) => {
+    return {
+        type: "CREATE-SENSOR",
+        data: response
+    }
+}
+
+const updateSensor = (sensor) => {
+    return {
+        type: "UPDATE-SENSOR",
+        data: sensor
+    }
+}
+
+const setSensorPieceValues = (piece) => {
+    return {
+        type: "SET-SENSOR-PIECE-VALUES",
+        data: piece
+    }
+}
+
 // ActionCreator
 export const setPageThingsActionCreator = (page) => {
     return async (dispatch) => {
@@ -153,6 +209,8 @@ export const setInitialStateActionCreator = () => {
         dispatch(setInitialState());
     };
 }
+
+
 // Redux-Thunk
 
 //Get Things Array
@@ -169,6 +227,19 @@ export const getThingsPageThunkCreator = (id, page, token) => {
     };
 };
 
+//Get pagination Info 
+
+export const getPaginationThingsInfoThunkCreator = (project, token) => {
+    return async (dispatch) => {
+        try {
+            const response = await thingsAPI.getPaginationInfo(project, token);
+            dispatch(setPaginationInfo(response))
+        } catch (error) {
+            setErrors(error, dispatch)
+        }
+    };
+};
+
 
 //Device CRUD
 
@@ -177,7 +248,7 @@ export const createDeviceThunkCreator = (deviceForm, token, thingsLength) => {
         try {
             const response = await thingsAPI.createDevice(deviceForm, token);
             if (thingsLength < 25) {
-                //25 - максимальное количество проектов на странице
+                //добавить elementPerPage
                 dispatch(createDevice(response))
             }
         } catch (error) {
@@ -213,7 +284,7 @@ export const setStateDeviceThunkCreator = (state, token) => {
     return async (dispatch) => {
         try {
             // token of device
-            const response = await thingsAPI.setState(state, token);
+            const response = await thingsAPI.setStateDevice(state, token);
             if (response.status === 200) {
                 dispatch(setState(response.data.body.state, token))
             }
@@ -224,16 +295,52 @@ export const setStateDeviceThunkCreator = (state, token) => {
     };
 };
 
-//Get count of Page
+//Sensors CRUD
 
-export const getPaginationThingsInfoThunkCreator = (project, token) => {
+export const createSensorThunkCreator = (sensorForm, token, thingsLength, setError) => {
     return async (dispatch) => {
         try {
-            const response = await thingsAPI.getPaginationInfo(project, token);
-            dispatch(setPaginationInfo(response))
+            const response = await thingsAPI.createSensor(sensorForm, token);
+            if (thingsLength < 25) {
+                //добавить elementPerPage
+                dispatch(createSensor(response))
+            }
+        } catch (error) {
+            setErrors(error, dispatch, setError)
+        }
+    };
+};
+
+export const updateSensorThunkCreator = (sensorForm, token, id) => {
+    return async (dispatch) => {
+        try {
+            const response = await thingsAPI.updateSensor(sensorForm, token, id);
+            dispatch(updateSensor(response))
         } catch (error) {
             setErrors(error, dispatch)
         }
     };
 };
 
+export const deleteSensorThunkCreator = (id, page, project, token) => {
+    return async (dispatch) => {
+        try {
+            const response = await thingsAPI.deleteSensor(id, token);
+            dispatch(getThingsPageThunkCreator(project, page, token))
+            return response.status
+        } catch (error) {
+            setErrors(error, dispatch)
+        }
+    };
+};
+
+export const getSensorPieceValuesThunkCreator = (token, fromTime, toTime) => {
+    return async (dispatch) => {
+        try {
+            const response = await thingsAPI.getPiece(token, fromTime, toTime);
+            dispatch(setSensorPieceValues(response));
+        } catch (error) {
+            setErrors(error, dispatch)
+        }
+    };
+};

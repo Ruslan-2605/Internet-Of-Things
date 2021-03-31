@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import styles from "../../../../styles/DeviceModalEditMode.module.css";
+import styles from "../../../../../styles/DeviceModalEditMode.module.css";
 import CloseIcon from '@material-ui/icons/Close';
 import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
 import CopyToClipboard from "react-copy-to-clipboard";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { getTextIsCopied } from "../../../utils/getTextIsCopied";
+import { getTextIsCopied } from "../../../../utils/getTextIsCopied";
 import { UpdateDeviceForm } from '../Forms/UpdateDeviceForm'
 
 export const DeviceModalEditMode = (props) => {

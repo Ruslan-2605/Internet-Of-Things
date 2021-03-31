@@ -1,4 +1,4 @@
-export const stateValidation = (value, states, setStates, setError) => {
+export const deviceStateValidation = (value, states, setStates, setError) => {
     if (value.length > 16) {
         return setError("state", {
             type: "max",

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styles from "../../../../styles/Device.module.css";
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
-import { DeviceModal } from "./DeviceModal";
-import { DeviceModalEditMode } from "./DeviceModalEditMode";
+import { DeviceModal } from "./Modals/DeviceModal";
+import { DeviceModalEditMode } from "./Modals/DeviceModalEditMode";
 
 export const Device = React.memo(({ thing }) => {
 

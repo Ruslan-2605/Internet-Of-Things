@@ -1,10 +1,5 @@
-import * as axios from "axios";
 import Cookies from 'js-cookie'
-
-const instance = axios.create({
-    baseURL: "http://localhost:8080/",
-});
-
+import { instance } from "./instance";
 
 export const authAPI = {
 

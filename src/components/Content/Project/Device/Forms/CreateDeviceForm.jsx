@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { setErrorForm } from "../../../utils/SetErrorForm";
+import { setErrorForm } from "../../../../utils/SetErrorForm";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
-import styles from "../../../../styles/DeviceForm.module.css";
+import styles from "../../../../../styles/DeviceForm.module.css";
 import AddIcon from '@material-ui/icons/Add';
 import { useDispatch, useSelector } from "react-redux";
-import { getUserToken } from "../../../../redux/selectors/authSelector";
-import { getThings } from "../../../../redux/selectors/thingsSelector";
-import { getProjectViewed } from "../../../../redux/selectors/projectsSelector";
-import { createDeviceThunkCreator } from "../../../../redux/reducers/thingsReducer";
-import { stateValidation } from "../../../utils/stateValidation";
-import { getErrorDeviceForm } from "../../../utils/getErrorDeviceForm";
+import { getUserToken } from "../../../../../redux/selectors/authSelector";
+import { getThings } from "../../../../../redux/selectors/thingsSelector";
+import { getProjectViewed } from "../../../../../redux/selectors/projectsSelector";
+import { createDeviceThunkCreator } from "../../../../../redux/reducers/thingsReducer";
+import { deviceStateValidation } from "../../../../utils/deviceStateValidation";
+import { getErrorDeviceForm } from "../../../../utils/getErrorDeviceForm";
 
 export const CreateDeviceForm = ({ states, setStates, defaultState }) => {
 
@@ -52,7 +52,7 @@ export const CreateDeviceForm = ({ states, setStates, defaultState }) => {
     const onClick = () => {
         const value = getValues('state')
         clearErrors("state")
-        stateValidation(value, states, setStates, setError)
+        deviceStateValidation(value, states, setStates, setError)
     };
 
     const onSubmit = (form) => {

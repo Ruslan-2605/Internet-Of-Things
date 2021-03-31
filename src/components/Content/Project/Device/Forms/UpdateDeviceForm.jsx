@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { setErrorForm } from "../../../utils/SetErrorForm";
+import { setErrorForm } from "../../../../utils/SetErrorForm";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
-import styles from "../../../../styles/DeviceForm.module.css";
+import styles from "../../../../../styles/DeviceForm.module.css";
 import AddIcon from '@material-ui/icons/Add';
 import { useDispatch, useSelector } from "react-redux";
-import { updateDeviceThunkCreator } from "../../../../redux/reducers/thingsReducer";
-import { getUserToken } from "../../../../redux/selectors/authSelector";
-import { stateValidation } from "../../../utils/stateValidation";
-import { getErrorDeviceForm } from "../../../utils/getErrorDeviceForm";
+import { updateDeviceThunkCreator } from "../../../../../redux/reducers/thingsReducer";
+import { getUserToken } from "../../../../../redux/selectors/authSelector";
+import { deviceStateValidation } from "../../../../utils/deviceStateValidation";
+import { getErrorDeviceForm } from "../../../../utils/getErrorDeviceForm";
 
 export const UpdateDeviceForm = ({ states, setStates, name = "", id }) => {
 
@@ -46,7 +46,7 @@ export const UpdateDeviceForm = ({ states, setStates, name = "", id }) => {
     const onClick = () => {
         const value = getValues('state')
         clearErrors("state")
-        stateValidation(value, states, setStates, setError)
+        deviceStateValidation(value, states, setStates, setError)
     };
 
     const onSubmit = (form) => {
