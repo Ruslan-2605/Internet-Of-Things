@@ -19,6 +19,7 @@ import { CreateDeviceModal } from "./Device/Modals/CreateDeviceModal";
 import { Pagination } from "../../utils/Pagination";
 import { CreateSensorForm } from "../Project/Sensor/Forms/CreateSensorForm";
 import { setError } from "../../../redux/reducers/errorsReducer";
+import { Sensor } from "./Sensor/Sensor";
 
 export const Project = withAuthRedirect(withRouter((props) => {
 
@@ -138,11 +139,11 @@ export const Project = withAuthRedirect(withRouter((props) => {
             />
 
             <div className={styles.things}>{things.map((thing) => {
-                if (thing.entity === "device") {
+                if (thing.type === "device") {
                     return <Device thing={thing} key={thing.entity.id} />
-                } else if (thing.entity === "sensor") {
+                } else if (thing.type === "sensor") {
                     //sensor
-                    console.log("sensor founded")
+                    return <Sensor thing={thing} key={thing.entity.id} />
                 }
             })}
             </div>

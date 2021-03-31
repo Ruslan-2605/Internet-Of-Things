@@ -232,6 +232,7 @@ export const getProjectThunkCreator = (id, token) => {
 //Get count of Page
 
 export const getPaginationProjectsInfoThunkCreator = (username, token) => {
+    debugger
     return async (dispatch) => {
         try {
             const response = await projectAPI.getPaginationInfo(username, token);

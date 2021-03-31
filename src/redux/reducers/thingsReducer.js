@@ -48,14 +48,15 @@ export const thingsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 things: state.things.map((thing) => {
-                    switch (thing.type === "device") {
-                        case thing.entity.id === action.data.id:
-                            return { ...thing, ...{ "entity": { ...action.data } } }
-                        default:
-                            return thing;
+                    if (thing.entity.id === action.data.id && thing.type === "device") {
+                        return { ...thing, ...{ "entity": { ...action.data } } }
+                    } else {
+                        return thing;
                     }
-                })
-            };
+                }
+                )
+            }
+
 
         case SET_PAGE_THINGS:
             return {
@@ -100,14 +101,14 @@ export const thingsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 things: state.things.map((thing) => {
-                    switch (thing.type === "sensor") {
-                        case thing.entity.id === action.data.id:
-                            return { ...thing, ...{ "entity": { ...action.data } } }
-                        default:
-                            return thing;
+                    if (thing.entity.id === action.data.id && thing.type === "sensor") {
+                        return { ...thing, ...{ "entity": { ...action.data } } }
+                    } else {
+                        return thing;
                     }
-                })
-            };
+                }
+                )
+            }
 
         case SET_SENSOR_PIECE_VALUES:
             return {
