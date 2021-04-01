@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserName, getUserToken } from "../../../redux/Authtorization/selectors/authSelector";
 import { getProjects, getActiveProjectsPage, getPaginationProjects } from "../../../redux/Dashboard/selectors/dashboardSelector";
 import { DashboardItem } from "./DashboardItem";
-import { Modal } from "../../utils/Modal"
+import { Modal } from "../../../utils/component-helpers/Modal"
 import { withAuthRedirect } from "../../../HOC/withAuthRedirect";
 import { CreateProjectForm } from "./Forms/CreateProjectForm";
-import { Pagination } from "../../utils/Pagination";
+import { Pagination } from "../../../utils/component-helpers/Pagination";
 import { getProjectsPageThunk } from "../../../redux/Dashboard/thunks/getProjectsPage";
 import { setProjectsPageAction } from "../../../redux/Dashboard/actions/setProjectsPage";
 import { getProjectsPaginationThunk } from "../../../redux/Dashboard/thunks/getProjectsPagination";

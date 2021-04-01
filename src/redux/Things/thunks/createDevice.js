@@ -1,4 +1,4 @@
-import { setErrors } from "../../../components/utils/setErrors";
+import { setErrors } from "../../../utils/redux-helpers/setErrors";
 import { thingsAPI } from "../../../DAL/thingsAPI";
 import { createDeviceAction } from "../actions/createDevice";
 

@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie'
-import { instance } from "./instance";
+import { instance } from '../utils/DAL-helpers/instance';
 
 export const authAPI = {
 

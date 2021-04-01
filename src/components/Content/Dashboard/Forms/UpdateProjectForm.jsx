@@ -1,7 +1,7 @@
 import React from "react";
-import { Input, Textarea } from "../../../utils/FormСontrollers";
+import { Input, Textarea } from "../../../../utils/form-helpers/FormСontrollers";
 import { useForm } from "react-hook-form";
-import { setErrorForm } from "../../../utils/SetErrorForm";
+import { setErrorForm } from "../../../../utils/form-helpers/SetErrorForm";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import styles from "../../../../styles/Form.module.css";

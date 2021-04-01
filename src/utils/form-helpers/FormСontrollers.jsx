@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../../styles/Form.module.css";
 
 export const Input = ({ register, name, type, placeholder = null, error = null }) => {
@@ -17,7 +17,7 @@ export const Input = ({ register, name, type, placeholder = null, error = null }
 
 export const Textarea = ({ register, name, type, placeholder = null, error = null }) => {
 
-    // const [state, setState] = useState(value);
+    // const [state, setState] = useState("first value");
 
     // const onChange = (e) => {
     //     setState(e.target.value);

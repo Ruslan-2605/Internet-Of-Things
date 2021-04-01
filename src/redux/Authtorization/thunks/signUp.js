@@ -1,4 +1,4 @@
-import { setErrors } from "../../../components/utils/setErrors";
+import { setErrors } from "../../../utils/redux-helpers/setErrors";
 import { authAPI } from "../../../DAL/authAPI";
 import { setAuthUserDataAction } from "../actions/setAuthUserData";
 

@@ -1,4 +1,4 @@
-import { instance } from "./instance";
+import { instance } from '../utils/DAL-helpers/instance';
 
 export const dashboardAPI = {
 

@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getActiveThingsPage, getPaginationThingsInfo, getThings } from "../../../redux/Things/selectors/thingsSelector";
 import { getUserToken } from "../../../redux/Authtorization/selectors/authSelector";
-import { Modal } from "../../utils/Modal"
+import { Modal } from "../../../utils/component-helpers/Modal"
 import { Device } from "./Device/Device";
 import { getProjectViewed } from "../../../redux/Dashboard/selectors/dashboardSelector";
 import SettingsIcon from '@material-ui/icons/Settings';
@@ -14,7 +14,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import { withAuthRedirect } from "../../../HOC/withAuthRedirect";
 import { CreateDeviceModal } from "./Device/Modals/CreateDeviceModal";
-import { Pagination } from "../../utils/Pagination";
+import { Pagination } from "../../../utils/component-helpers/Pagination";
 import { CreateSensorForm } from "../Project/Sensor/Forms/CreateSensorForm";
 import { Sensor } from "./Sensor/Sensor";
 import { setInitialProjectViewedAction } from "../../../redux/Dashboard/actions/setInitialProjectViewed";

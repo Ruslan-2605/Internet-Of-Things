@@ -1,4 +1,4 @@
-import { updateObjectArray } from "../../../components/utils/updateObjectArray";
+import { updateObjectArray } from "../../../utils/redux-helpers/updateObjectArray";
 
 const SET_PROJECTS = "SET-PROJECTS";
 const CREATE_PROJECT = "CREATE-PROJECT";

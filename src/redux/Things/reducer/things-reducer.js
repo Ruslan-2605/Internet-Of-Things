@@ -1,5 +1,5 @@
-import { createThing } from "../../../components/utils/updateThing copy";
-import { updateThing } from "../../../components/utils/updateThing";
+import { createThing } from "../../../utils/redux-helpers/createThing";
+import { updateThing } from "../../../utils/redux-helpers/updateThing";
 
 const SET_THINGS = "SET-THINGS";
 const CREATE_DEVICE = "CREATE-DEVICE";

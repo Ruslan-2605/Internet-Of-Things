@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { setErrorForm } from "../../../../utils/SetErrorForm";
+import { setErrorForm } from "../../../../../utils/form-helpers/SetErrorForm";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import styles from "../../../../../styles/DeviceForm.module.css";
@@ -9,8 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserToken } from "../../../../../redux/Authtorization/selectors/authSelector";
 import { getThings } from "../../../../../redux/Things/selectors/thingsSelector";
 import { getProjectViewed } from "../../../../../redux/Dashboard/selectors/dashboardSelector";
-import { deviceStateValidation } from "../../../../utils/deviceStateValidation";
-import { getErrorDeviceForm } from "../../../../utils/getErrorDeviceForm";
+import { deviceStateValidation } from "../../../../../utils/form-helpers/deviceStateValidation";
+import { getErrorDeviceForm } from "../../../../../utils/form-helpers/getErrorDeviceForm";
 import { createDeviceThunk } from "../../../../../redux/Things/thunks/createDevice";
 
 export const CreateDeviceForm = ({ states, setStates, defaultState }) => {

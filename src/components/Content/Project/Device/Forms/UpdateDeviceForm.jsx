@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { setErrorForm } from "../../../../utils/SetErrorForm";
+import { setErrorForm } from "../../../../../utils/form-helpers/SetErrorForm";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import styles from "../../../../../styles/DeviceForm.module.css";
 import AddIcon from '@material-ui/icons/Add';
 import { useDispatch, useSelector } from "react-redux";
 import { getUserToken } from "../../../../../redux/Authtorization/selectors/authSelector";
-import { deviceStateValidation } from "../../../../utils/deviceStateValidation";
-import { getErrorDeviceForm } from "../../../../utils/getErrorDeviceForm";
+import { deviceStateValidation } from "../../../../../utils/form-helpers/deviceStateValidation";
+import { getErrorDeviceForm } from "../../../../../utils/form-helpers/getErrorDeviceForm";
 import { updateDeviceThunk } from "../../../../../redux/Things/thunks/updateDevice";
 
 export const UpdateDeviceForm = ({ states, setStates, name = "", id }) => {

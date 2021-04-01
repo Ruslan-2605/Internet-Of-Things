@@ -1,4 +1,4 @@
-import { setErrors } from "../../../components/utils/setErrors";
+import { setErrors } from "../../../utils/redux-helpers/setErrors";
 import { dashboardAPI } from "../../../DAL/dashboardAPI";
 import { updateProjectAction } from "../actions/updateProject";
 import { setViewedProjectAction } from "../actions/setViewedProject";

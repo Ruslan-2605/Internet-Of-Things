@@ -7,7 +7,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import GroupSharpIcon from '@material-ui/icons/GroupSharp';
 import { SignIn } from "../Login/SignIn"
 import { SignUp } from "../Login/SignUp"
-import { Modal } from "../utils/Modal"
+import { Modal } from "../../utils/component-helpers/Modal"
 
 export const HeaderComponent = () => {
 

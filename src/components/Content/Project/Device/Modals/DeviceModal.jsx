@@ -9,10 +9,10 @@ import { getActiveThingsPage } from "../../../../../redux/Things/selectors/thing
 import { getProjectViewed } from "../../../../../redux/Dashboard/selectors/dashboardSelector";
 import { getUserToken } from "../../../../../redux/Authtorization/selectors/authSelector";
 import CopyToClipboard from "react-copy-to-clipboard";
-import { getTextIsCopied } from "../../../../utils/getTextIsCopied";
+import { getTextIsCopied } from "../../../../../utils/component-helpers/getTextIsCopied";
 import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
 import fetching from "../../../../../images/fetching.gif"
-import { LastActive } from "../../../../utils/LastActive.jsx";
+import { LastActive } from "../../../../../utils/component-helpers/LastActive";
 import { deleteDeviceThunk } from "../../../../../redux/Things/thunks/deleteDevice";
 import { setDeviceStateThunk } from "../../../../../redux/Things/thunks/setDeviceState";
 import { setErrorAction } from "../../../../../redux/Errors/actions/setError";
