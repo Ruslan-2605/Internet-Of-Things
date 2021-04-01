@@ -3,7 +3,6 @@ import styles from "../../styles/Header.module.css";
 import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import { getIsAuth, getUserName } from "../../redux/Authtorization/selectors/authSelector";
 import { useSelector } from "react-redux";
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import GroupSharpIcon from '@material-ui/icons/GroupSharp';
 import { SignIn } from "../Login/SignIn"
 import { SignUp } from "../Login/SignUp"
@@ -62,11 +61,10 @@ export const HeaderIfAuthFalse = () => {
 
     return (
         <div className={styles.content}>
-            <button className={styles.login} onClick={() => setSignIn(true)}>Sign In</button>
-            <button className={styles.login} onClick={() => setSignUp(true)}>Sign Up</button>
+            <button className={styles.btnLogin} onClick={() => setSignIn(true)}>Sign In</button>
+            <button className={styles.btnLogin} onClick={() => setSignUp(true)}>Sign Up</button>
             <Modal isModal={isSignIn} setModal={setSignIn} title="Login"><SignIn setSignIn={setSignIn} /></Modal>
             <Modal isModal={isSignUp} setModal={setSignUp} title="Login"><SignUp setSignIn={setSignIn} setSignUp={setSignUp} /></Modal>
-            <ExitToAppIcon />
         </div>
     )
 }

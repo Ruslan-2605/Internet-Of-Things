@@ -136,6 +136,9 @@
 }
 .state p{
     margin-left: 15px;
+    display: flex;
+    height: 100%;
+    align-items: center;
 }
 .state p:last-child{
    margin-right: 15px;

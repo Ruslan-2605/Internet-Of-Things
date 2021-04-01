@@ -27,14 +27,15 @@ export const Pagination = ({ page, paginationInfo, pathname, onPageChanged, setP
         const parsed = queryString.parse(history.location.search);
         let actualPage = page;
         if (!!parsed.page) actualPage = Number(parsed.page)
+        dispatch(setPage(actualPage))
         // if actualPage > countPage || !isNaN(actualPage){
         //  нужно добавить после того как сделаю инициализацию приложения
         // }
-        if (!isNaN(actualPage)) {
-            dispatch(setPage(actualPage))
-        } else {
-            dispatch(setErrorAction({ "status": 400, "message": "Not exist page" }))
-        }
+        // if (!isNaN(actualPage)) {
+        //     dispatch(setPage(actualPage))
+        // } else {
+        //     dispatch(setErrorAction({ "status": 400, "message": "Not exist page" }))
+        // }
     }, [])
 
     useEffect(() => {

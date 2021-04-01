@@ -44,16 +44,8 @@ export const Project = withAuthRedirect(withRouter((props) => {
     }, [])
 
     useEffect(() => {
-        if (thingsPage > paginationInfo.pages && thingsPage !== 1) {
-            dispatch(setErrorAction({ "status": 400, "message": "Not exist page" }));
-            if (paginationInfo.pages > 0) {
-                dispatch(setThingsPageAction(1));
-            }
-        }
-        else if (paginationInfo.pages > 0) {
-            dispatch(getThingsPageThunk(id, thingsPage, token));
-        }
-    }, [id, thingsPage, token, paginationInfo])
+        dispatch(getThingsPageThunk(id, thingsPage, token));
+    }, [thingsPage])
 
     useEffect(() => {
         //set initialState после демонтирования компоненты 

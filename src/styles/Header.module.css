@@ -7,17 +7,11 @@
         font-weight: 500;
         letter-spacing: 0.5px;
     }
-    .content .login{
-        border: 1px solid #000;
-        border-radius: 10px;
+    .btnLogin{
         padding: 7px;
-        margin-right: 12px;
     }
-    .content .login:hover{
-        transition-duration: 0.5s;
-        box-shadow: 1px 2px 3px black;
-        opacity: 0.95;
-        font-weight: 500;
+    .btnLogin:first-child{
+        margin-right: 12px;
     }
 }
 @media (max-width: 479px){
@@ -29,10 +23,10 @@
         font-weight: 400;
         letter-spacing: 0.3px;
     }
-    .content .login{
-        border: 0.5px solid #000;
-        border-radius: 8px;
+    .btnLogin{
         padding: 3px;
+    }
+    .btnLogin:first-child{
         margin-right: 7px;
     }
 }
@@ -50,13 +44,19 @@
 .username{
     line-height: 1.5;
 }
-.content .login{
-    color: #fff;
-    text-decoration: none;
+.btnLogin{
+    width: 65px;
+    color: #b3294e;
+    border: 1px solid #b3294e;
+    background-color: #fff;
+    padding: 6px;
+    font-weight: 500;
+    border-radius: 8px;
+}
+.btnLogin:hover{
+    transition-duration: 0.4s;
     background-color: #b3294e;
-    font-weight: 400;
-    opacity: 0.85;
-    box-shadow: 1px 1px 1px black;
+    color: #fff;
 }
 .title{
     display: flex;

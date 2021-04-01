@@ -26,16 +26,9 @@ export const Dashboard = withAuthRedirect(() => {
     }, [])
 
     useEffect(() => {
-        if (page > paginationInfo.pages && page !== 1) {
-            dispatch(setErrorAction({ "status": 400, "message": "Not exist page" }));
-            if (paginationInfo.pages > 0) {
-                dispatch(setProjectsPageAction(1));
-            }
-        }
-        else if (paginationInfo.pages > 0) {
-            dispatch(getProjectsPageThunk(username, token, page));
-        }
-    }, [username, token, page, paginationInfo]);
+        dispatch(getProjectsPageThunk(username, token, page));
+
+    }, [page]);
 
     const onPageChanged = (page) => {
         dispatch(setProjectsPageAction(page))
