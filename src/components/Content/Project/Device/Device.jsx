@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "../../../../styles/Device.module.css";
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import { DeviceModal } from "./Modals/DeviceModal";
-import { DeviceModalEditMode } from "./Modals/DeviceModalEditMode";
+import { DeviceEditModeModal } from "./Modals/DeviceEditModeModal";
 
 export const Device = React.memo(({ thing }) => {
 
@@ -35,7 +35,7 @@ export const Device = React.memo(({ thing }) => {
                         thing={thing}
                         setEditMode={setEditMode} />
                     :
-                    <DeviceModalEditMode
+                    <DeviceEditModeModal
                         isModal={isDeviceModal}
                         setModal={setDeviceModal}
                         thing={thing}

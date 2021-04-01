@@ -1,39 +1,35 @@
-import React, { useState } from "react";
+import React from "react";
+import { useFluxForm } from "../../hooks/useFluxForm";
 import styles from "../../styles/Form.module.css";
 
-export const Input = ({ register, name, type, placeholder = null, error = null }) => {
+export const Input = ({ register, name, type, value = "", placeholder = null }) => {
+
+    const [state, onChange] = useFluxForm(value);
+
     return (
-        <div>
-            <input className={styles.input}
-                ref={register}
-                type={type}
-                name={name}
-                placeholder={placeholder}
-            />
-            <div className={styles.error}>{error && error.message}</div>
-        </div >
+        <input className={styles.input}
+            ref={register}
+            type={type}
+            name={name}
+            placeholder={placeholder}
+            value={state}
+            onChange={onChange}
+        />
     )
 }
 
-export const Textarea = ({ register, name, type, placeholder = null, error = null }) => {
+export const Textarea = ({ register, name, type, value = "", placeholder = null }) => {
 
-    // const [state, setState] = useState("first value");
-
-    // const onChange = (e) => {
-    //     setState(e.target.value);
-    // };
+    const [state, onChange] = useFluxForm(value);
 
     return (
-        <div>
-            <textarea className={styles.textarea}
-                ref={register}
-                type={type}
-                name={name}
-                placeholder={placeholder}
-            // value={state}
-            // onChange={onChange}
-            />
-            <div className={styles.error}>{error && error.message}</div>
-        </div >
+        <textarea className={styles.textarea}
+            ref={register}
+            type={type}
+            name={name}
+            placeholder={placeholder}
+            value={state}
+            onChange={onChange}
+        />
     )
 }

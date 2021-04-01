@@ -8,6 +8,7 @@ import { Input } from "../../utils/form-helpers/FormСontrollers";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { signInThunk } from "../../redux/Authtorization/thunks/signIn";
+import { ErrorsForm } from "../../utils/form-helpers/ErrorsForm";
 
 
 export const SignIn = ({ setSignIn }) => {
@@ -58,11 +59,11 @@ export const SignIn = ({ setSignIn }) => {
     return (
         <form onSubmit={handleSubmit((authData) => onSubmit(authData), onError)} className={styles.form}>
 
-            <Input register={register} type="text" name="username" placeholder="Username" error={errors.username} />
+            <Input register={register} type="text" name="username" placeholder="Username" />
 
-            <Input register={register} type="password" name="password" placeholder="Password" error={errors.password} />
+            <Input register={register} type="password" name="password" placeholder="Password" />
 
-            <div className={styles.error}>{errors.error && errors.error.message}</div>
+            <ErrorsForm errors={errors} />
 
             <button className={styles.btn}>Sign In</button>
         </form >

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "../../../../../styles/DeviceModalEditMode.module.css";
+import styles from "../../../../../styles/DeviceEditModeModal.module.css";
 import CloseIcon from '@material-ui/icons/Close';
 import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
 import CopyToClipboard from "react-copy-to-clipboard";
@@ -7,7 +7,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { getTextIsCopied } from "../../../../../utils/component-helpers/getTextIsCopied";
 import { UpdateDeviceForm } from '../Forms/UpdateDeviceForm'
 
-export const DeviceModalEditMode = (props) => {
+export const DeviceEditModeModal = (props) => {
 
     const { isModal, setModal, thing, setEditMode } = props;
 
@@ -76,7 +76,7 @@ const DeviceInfo = ({ thing, states, setStates }) => {
                 })
             }
 
-            <UpdateDeviceForm states={states} setStates={setStates} name={name} id={id} />
+            <UpdateDeviceForm states={states} setStates={setStates} defaultName={name} id={id} />
 
         </div>
     )

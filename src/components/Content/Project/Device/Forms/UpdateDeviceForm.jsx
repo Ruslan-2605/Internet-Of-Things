@@ -8,10 +8,11 @@ import AddIcon from '@material-ui/icons/Add';
 import { useDispatch, useSelector } from "react-redux";
 import { getUserToken } from "../../../../../redux/Authtorization/selectors/authSelector";
 import { deviceStateValidation } from "../../../../../utils/form-helpers/deviceStateValidation";
-import { getErrorDeviceForm } from "../../../../../utils/form-helpers/getErrorDeviceForm";
+import { ErrorsForm } from "../../../../../utils/form-helpers/ErrorsForm.jsx";
 import { updateDeviceThunk } from "../../../../../redux/Things/thunks/updateDevice";
+import { useFluxForm } from "../../../../../hooks/useFluxForm"
 
-export const UpdateDeviceForm = ({ states, setStates, name = "", id }) => {
+export const UpdateDeviceForm = ({ states, setStates, defaultName = "", id }) => {
 
     const schema = yup.object().shape({
         state: yup
@@ -27,7 +28,7 @@ export const UpdateDeviceForm = ({ states, setStates, name = "", id }) => {
     const { handleSubmit, register, setError, getValues, clearErrors, errors } = useForm({
         reValidateMode: "onSubmit",
         defaultValues: {
-            "name": name,
+            "name": defaultName,
             "state": "",
         },
         resolver: yupResolver(schema),
@@ -35,8 +36,10 @@ export const UpdateDeviceForm = ({ states, setStates, name = "", id }) => {
 
     const dispatch = useDispatch();
     const userToken = useSelector(getUserToken);
+    const [name, onChangeName] = useFluxForm(defaultName);
+    const [state, onChangeState] = useFluxForm("");
 
-    const [deviceForm, setDeviceForm] = useState({ "states": states, "name": name })
+    const [deviceForm, setDeviceForm] = useState({ "states": states, "name": defaultName })
     useEffect(() => setDeviceForm({ ...deviceForm, "states": states }), [states])
 
     const onError = (e) => {
@@ -62,6 +65,8 @@ export const UpdateDeviceForm = ({ states, setStates, name = "", id }) => {
                     ref={register}
                     name="name"
                     placeholder="Write name"
+                    value={name}
+                    onChange={onChangeName}
                 />
 
                 {
@@ -72,6 +77,8 @@ export const UpdateDeviceForm = ({ states, setStates, name = "", id }) => {
                             ref={register}
                             name="state"
                             placeholder="Add new state"
+                            value={state}
+                            onChange={onChangeState}
                         />
                         <button className={styles.addIcon} type="button" onClick={onClick}><AddIcon /></button>
                     </div>
@@ -81,9 +88,9 @@ export const UpdateDeviceForm = ({ states, setStates, name = "", id }) => {
                 <button className={styles.submitBtn} type="submit">Update</button>
 
             </form >
-            {
-                getErrorDeviceForm(errors)
-            }
+
+            <ErrorsForm errors={errors} />
+
         </>
     )
 }

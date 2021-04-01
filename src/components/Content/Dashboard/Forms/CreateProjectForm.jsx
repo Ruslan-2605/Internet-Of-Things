@@ -10,6 +10,7 @@ import { createProjectThunk } from "../../../../redux/Dashboard/thunks/createPro
 import { getProjectsPaginationThunk } from "../../../../redux/Dashboard/thunks/getProjectsPagination";
 import { useDispatch, useSelector } from "react-redux";
 import { getPaginationProjects, getProjects } from "../../../../redux/Dashboard/selectors/dashboardSelector";
+import { ErrorsForm } from "../../../../utils/form-helpers/ErrorsForm"
 
 export const CreateProjectForm = (props) => {
 
@@ -54,9 +55,11 @@ export const CreateProjectForm = (props) => {
     return (
         <form onSubmit={handleSubmit((projectData) => onSubmit(projectData), onError)}>
 
-            <Input register={register} type="text" placeholder="Name" name="name" error={errors.name} />
+            <Input register={register} type="text" placeholder="Name" name="name" />
 
-            <Textarea register={register} type="text" placeholder="Title" name="title" error={errors.title} />
+            <Textarea register={register} type="text" placeholder="Title" name="title" />
+
+            <ErrorsForm errors={errors} />
 
             <button className={styles.btn}>Create</button>
         </form >

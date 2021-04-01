@@ -10,8 +10,9 @@ import { getUserToken } from "../../../../../redux/Authtorization/selectors/auth
 import { getThings } from "../../../../../redux/Things/selectors/thingsSelector";
 import { getProjectViewed } from "../../../../../redux/Dashboard/selectors/dashboardSelector";
 import { deviceStateValidation } from "../../../../../utils/form-helpers/deviceStateValidation";
-import { getErrorDeviceForm } from "../../../../../utils/form-helpers/getErrorDeviceForm";
+import { ErrorsForm } from "../../../../../utils/form-helpers/ErrorsForm.jsx";
 import { createDeviceThunk } from "../../../../../redux/Things/thunks/createDevice";
+import { useFluxForm } from "../../../../../hooks/useFluxForm"
 
 export const CreateDeviceForm = ({ states, setStates, defaultState }) => {
 
@@ -39,6 +40,9 @@ export const CreateDeviceForm = ({ states, setStates, defaultState }) => {
     const token = useSelector(getUserToken);
     const thingsLength = useSelector(getThings).length;
     const project = useSelector(getProjectViewed).id;
+
+    const [name, onChangeName] = useFluxForm("");
+    const [state, onChangeState] = useFluxForm("");
 
     const [deviceForm, setDeviceForm] = useState({ "states": states, "state": defaultState, "name": "" });
     useEffect(() => setDeviceForm(
@@ -68,6 +72,8 @@ export const CreateDeviceForm = ({ states, setStates, defaultState }) => {
                     ref={register}
                     name="name"
                     placeholder="Write name"
+                    value={name}
+                    onChange={onChangeName}
                 />
 
                 {
@@ -78,6 +84,8 @@ export const CreateDeviceForm = ({ states, setStates, defaultState }) => {
                             ref={register}
                             name="state"
                             placeholder="Add new state"
+                            value={state}
+                            onChange={onChangeState}
                         />
                         <button className={styles.addIcon} type="button" onClick={onClick}><AddIcon /></button>
                     </div>
@@ -87,9 +95,9 @@ export const CreateDeviceForm = ({ states, setStates, defaultState }) => {
 
             </form >
 
-            {
-                getErrorDeviceForm(errors)
-            }
+
+            <ErrorsForm errors={errors} />
+
 
         </>
     )

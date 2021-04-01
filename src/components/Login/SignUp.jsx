@@ -7,6 +7,7 @@ import { setErrorForm } from "../../utils/form-helpers/SetErrorForm";
 import { Input } from "../../utils/form-helpers/FormСontrollers";
 import { useDispatch } from "react-redux";
 import { signUpThunk } from "../../redux/Authtorization/thunks/signUp";
+import { ErrorsForm } from "../../utils/form-helpers/ErrorsForm";
 
 export const SignUp = ({ setSignIn, setSignUp }) => {
 
@@ -63,13 +64,13 @@ export const SignUp = ({ setSignIn, setSignUp }) => {
     return (
         <form onSubmit={handleSubmit((authData) => onSubmit(authData), onError)} className={styles.form}>
 
-            <Input register={register} type="text" name="email" placeholder="email" error={errors.email} />
+            <Input register={register} type="text" name="email" placeholder="email" />
 
-            <Input register={register} type="text" name="username" placeholder="username" error={errors.username} />
+            <Input register={register} type="text" name="username" placeholder="username" />
 
-            <Input register={register} type="password" name="password" placeholder="password" error={errors.password} />
+            <Input register={register} type="password" name="password" placeholder="password" />
 
-            <div className={styles.error}>{errors.error && errors.error.message}</div>
+            <ErrorsForm errors={errors} />
 
             <button className={styles.btn}>Sign Up</button>
         </form >

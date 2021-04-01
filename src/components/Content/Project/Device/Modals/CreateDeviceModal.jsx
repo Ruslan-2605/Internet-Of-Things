@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "../../../../../styles/DeviceModalEditMode.module.css";
+import styles from "../../../../../styles/DeviceEditModeModal.module.css";
 import CloseIcon from '@material-ui/icons/Close';
 import { CreateDeviceForm } from '../Forms/CreateDeviceForm'
 
