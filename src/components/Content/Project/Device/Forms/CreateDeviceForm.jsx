@@ -6,12 +6,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import styles from "../../../../../styles/DeviceForm.module.css";
 import AddIcon from '@material-ui/icons/Add';
 import { useDispatch, useSelector } from "react-redux";
-import { getUserToken } from "../../../../../redux/selectors/authSelector";
-import { getThings } from "../../../../../redux/selectors/thingsSelector";
-import { getProjectViewed } from "../../../../../redux/selectors/projectsSelector";
-import { createDeviceThunkCreator } from "../../../../../redux/reducers/thingsReducer";
+import { getUserToken } from "../../../../../redux/Authtorization/selectors/authSelector";
+import { getThings } from "../../../../../redux/Things/selectors/thingsSelector";
+import { getProjectViewed } from "../../../../../redux/Dashboard/selectors/dashboardSelector";
 import { deviceStateValidation } from "../../../../utils/deviceStateValidation";
 import { getErrorDeviceForm } from "../../../../utils/getErrorDeviceForm";
+import { createDeviceThunk } from "../../../../../redux/Things/thunks/createDevice";
 
 export const CreateDeviceForm = ({ states, setStates, defaultState }) => {
 
@@ -56,7 +56,7 @@ export const CreateDeviceForm = ({ states, setStates, defaultState }) => {
     };
 
     const onSubmit = (form) => {
-        dispatch(createDeviceThunkCreator({ ...deviceForm, "project": project, "name": form.name }, token, thingsLength))
+        dispatch(createDeviceThunk({ ...deviceForm, "project": project, "name": form.name }, token, thingsLength))
     }
 
     return (

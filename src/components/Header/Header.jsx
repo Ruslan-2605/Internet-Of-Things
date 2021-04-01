@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "../../styles/Header.module.css";
 import HomeWorkIcon from '@material-ui/icons/HomeWork';
-import { getIsAuth, getUserName } from "../../redux/selectors/authSelector";
+import { getIsAuth, getUserName } from "../../redux/Authtorization/selectors/authSelector";
 import { useSelector } from "react-redux";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import GroupSharpIcon from '@material-ui/icons/GroupSharp';

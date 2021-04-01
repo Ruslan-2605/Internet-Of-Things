@@ -1,8 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteSensorThunkCreator, updateSensorThunkCreator } from "../../../../redux/reducers/thingsReducer";
-import { getUserToken } from "../../../../redux/selectors/authSelector";
-import { getActiveProjectsPage, getProjectViewed } from "../../../../redux/selectors/projectsSelector";
+import { getUserToken } from "../../../../redux/Authtorization/selectors/authSelector";
+import { getActiveProjectsPage, getProjectViewed } from "../../../../redux/Dashboard/selectors/dashboardSelector";
+import { deleteSensorThunk } from "../../../../redux/Things/thunks/deleteSensor";
+import { updateSensorThunk } from "../../../../redux/Things/thunks/updateSensor";
 import styles from "../../../../styles/Device.module.css";
 
 
@@ -21,8 +22,8 @@ export const Sensor = ({ thing }) => {
                 <div className={styles.name}>
                     {name}
                 </div><hr />
-                <button onClick={() => dispatch(deleteSensorThunkCreator(id, page, project, token))}>Delete</button>
-                <button onClick={() => dispatch(updateSensorThunkCreator({ "name": "rus" }, token, id))}>Update</button>
+                <button onClick={() => dispatch(deleteSensorThunk(id, page, project, token))}>Delete</button>
+                <button onClick={() => dispatch(updateSensorThunk({ "name": "NewName" }, token, id))}>Update</button>
             </div>
         </div>
     );

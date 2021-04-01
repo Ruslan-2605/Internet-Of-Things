@@ -6,10 +6,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import styles from "../../../../../styles/DeviceForm.module.css";
 import AddIcon from '@material-ui/icons/Add';
 import { useDispatch, useSelector } from "react-redux";
-import { updateDeviceThunkCreator } from "../../../../../redux/reducers/thingsReducer";
-import { getUserToken } from "../../../../../redux/selectors/authSelector";
+import { getUserToken } from "../../../../../redux/Authtorization/selectors/authSelector";
 import { deviceStateValidation } from "../../../../utils/deviceStateValidation";
 import { getErrorDeviceForm } from "../../../../utils/getErrorDeviceForm";
+import { updateDeviceThunk } from "../../../../../redux/Things/thunks/updateDevice";
 
 export const UpdateDeviceForm = ({ states, setStates, name = "", id }) => {
 
@@ -50,7 +50,7 @@ export const UpdateDeviceForm = ({ states, setStates, name = "", id }) => {
     };
 
     const onSubmit = (form) => {
-        dispatch(updateDeviceThunkCreator({ ...deviceForm, "name": form.name }, userToken, id))
+        dispatch(updateDeviceThunk({ ...deviceForm, "name": form.name }, userToken, id))
     }
 
     return (

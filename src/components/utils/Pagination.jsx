@@ -5,7 +5,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import * as queryString from "query-string";
-import { setError } from "../../redux/reducers/errorsReducer";
+import { setErrorAction } from "../../redux/Errors/actions/setError";
 
 export const Pagination = ({ page, paginationInfo, pathname, onPageChanged, setPage }) => {
 
@@ -33,7 +33,7 @@ export const Pagination = ({ page, paginationInfo, pathname, onPageChanged, setP
         if (!isNaN(actualPage)) {
             dispatch(setPage(actualPage))
         } else {
-            dispatch(setError({ "status": 400, "message": "Not exist page" }))
+            dispatch(setErrorAction({ "status": 400, "message": "Not exist page" }))
         }
     }, [])
 

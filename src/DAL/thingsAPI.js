@@ -29,7 +29,7 @@ export const thingsAPI = {
             })
     },
 
-    setStateDevice(state, token) {
+    setDeviceState(state, token) {
         return instance
             .post(`deviceState/${token}?state=${state}`)
             .then((response) => response);

@@ -11,9 +11,12 @@ export const getProjects = (state) => {
 export const getIconSelected = (state) => {
     return getProject(state).iconSelected
 }
-export const getPaginationProjectsInfo = (state) => {
+export const getPaginationProjects = (state) => {
     return getProject(state).paginationInfo
 }
 export const getProjectViewed = (state) => {
     return getProject(state).projectViewed
+}
+export const getProjectViewedId = (state) => {
+    return getProject(state).projectViewed.id
 }

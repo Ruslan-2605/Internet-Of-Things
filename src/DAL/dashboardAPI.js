@@ -1,8 +1,8 @@
 import { instance } from "./instance";
 
-export const projectAPI = {
+export const dashboardAPI = {
 
-    getProjectPage(username, token, page) {
+    getProjectsPage(username, token, page) {
         return instance
             .get(`pagination/project/${page}?username=${username}`,
                 { 'headers': { 'Authorization': token } })
@@ -38,7 +38,7 @@ export const projectAPI = {
             .then((response) => response.data);
     },
 
-    getPaginationInfo(username, token) {
+    getPagination(username, token) {
         return instance
             .get(`pagination/project?username=${username}`, { 'headers': { 'Authorization': token } })
             .then((response) => response.data);

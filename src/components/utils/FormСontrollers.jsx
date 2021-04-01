@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "../../styles/Form.module.css";
 
 export const Input = ({ register, name, type, placeholder = null, error = null }) => {

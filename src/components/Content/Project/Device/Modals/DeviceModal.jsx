@@ -5,16 +5,17 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
 import { useDispatch, useSelector } from "react-redux";
-import { getActiveThingsPage } from "../../../../../redux/selectors/thingsSelector";
-import { getProjectViewed } from "../../../../../redux/selectors/projectsSelector";
-import { getUserToken } from "../../../../../redux/selectors/authSelector";
+import { getActiveThingsPage } from "../../../../../redux/Things/selectors/thingsSelector";
+import { getProjectViewed } from "../../../../../redux/Dashboard/selectors/dashboardSelector";
+import { getUserToken } from "../../../../../redux/Authtorization/selectors/authSelector";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { getTextIsCopied } from "../../../../utils/getTextIsCopied";
-import { setStateDeviceThunkCreator, deleteDeviceThunkCreator } from "../../../../../redux/reducers/thingsReducer";
 import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
 import fetching from "../../../../../images/fetching.gif"
 import { LastActive } from "../../../../utils/LastActive.jsx";
-import { setErrorActionCreator } from "../../../../../redux/reducers/errorsReducer";
+import { deleteDeviceThunk } from "../../../../../redux/Things/thunks/deleteDevice";
+import { setDeviceStateThunk } from "../../../../../redux/Things/thunks/setDeviceState";
+import { setErrorAction } from "../../../../../redux/Errors/actions/setError";
 
 export const DeviceModal = (props) => {
 
@@ -51,8 +52,8 @@ const Icons = ({ id, token, setModal, setEditMode }) => {
 
     const [isCopy, setCopy] = useState(false);
 
-    const deleteDevice = async () => {
-        const status = await dispatch(deleteDeviceThunkCreator(id, page, project, userToken))
+    const remove = async () => {
+        const status = await dispatch(deleteDeviceThunk(id, page, project, userToken))
         if (status === 200) {
             setModal(false)
         }
@@ -68,7 +69,7 @@ const Icons = ({ id, token, setModal, setEditMode }) => {
             </div>
             <div>
                 <button onClick={() => setEditMode(true)}><EditIcon /></button>
-                <button onClick={deleteDevice}><DeleteIcon /></button>
+                <button onClick={remove}><DeleteIcon /></button>
             </div>
         </div>
     );
@@ -110,18 +111,18 @@ const State = ({ state, activeState, token, isDisabled, setDisabled }) => {
         if (state !== activeState && !isDisabled) {
             setFethcing(true);
             setDisabled(true);
-            const status = await dispatch(setStateDeviceThunkCreator(state, token));
+            const status = await dispatch(setDeviceStateThunk(state, token));
             if (status === 204) {
-                dispatch(setErrorActionCreator({ "status": 204, "message": "No content" }))
+                dispatch(setErrorAction({ "status": 204, "message": "No content" }))
             }
             setFethcing(false);
             setDisabled(false);
         }
         else if (state == activeState) {
-            dispatch(setErrorActionCreator({ "status": 400, "message": "State is active" }))
+            dispatch(setErrorAction({ "status": 400, "message": "State is active" }))
         }
         else if (isDisabled) {
-            dispatch(setErrorActionCreator({ "status": 400, "message": "Another request in the queue" }))
+            dispatch(setErrorAction({ "status": 400, "message": "Another request in the queue" }))
         }
     }
 

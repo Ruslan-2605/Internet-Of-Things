@@ -6,10 +6,10 @@ import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import styles from "../../../../../styles/Form.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserToken } from "../../../../../redux/selectors/authSelector";
-import { getProjectViewed } from "../../../../../redux/selectors/projectsSelector";
-import { createSensorThunkCreator } from "../../../../../redux/reducers/thingsReducer";
-import { getThings } from "../../../../../redux/selectors/thingsSelector";
+import { getUserToken } from "../../../../../redux/Authtorization/selectors/authSelector";
+import { getProjectViewed } from "../../../../../redux/Dashboard/selectors/dashboardSelector";
+import { getThings } from "../../../../../redux/Things/selectors/thingsSelector";
+import { createSensorThunk } from "../../../../../redux/Things/thunks/createSensor";
 
 export const CreateSensorForm = (props) => {
 
@@ -42,7 +42,7 @@ export const CreateSensorForm = (props) => {
     };
 
     const onSubmit = (sensorForm) => {
-        dispatch(createSensorThunkCreator({ ...sensorForm, "project": project }, token, thingsLength, setError));
+        dispatch(createSensorThunk({ ...sensorForm, "project": project }, token, thingsLength, setError));
     };
 
     return (

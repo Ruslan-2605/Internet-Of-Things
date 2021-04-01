@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "../../styles/ErrorsModal.module.css"
 import CloseIcon from '@material-ui/icons/Close';
 import { useDispatch, useSelector } from "react-redux";
-import { getErrorsArray } from "../../redux/selectors/errorsSelector";
-import { deleteErrorActionCreator } from "../../redux/reducers/errorsReducer"
+import { getErrorsArray } from "../../redux/Errors/selectors/errorsSelector";
+import { deleteErrorAction } from "../../redux/Errors/actions/deleteError"
 
 export const ErrorsModal = () => {
 
@@ -24,12 +24,12 @@ const Error = React.memo(({ error, index }) => {
 
     const dispatch = useDispatch();
 
-    setTimeout(() => dispatch(deleteErrorActionCreator(index)), 5000);
+    setTimeout(() => dispatch(deleteErrorAction(index)), 5000);
 
     return (
         <div className={styles.content}>
             <p>{error.message ? error.message : "Some error"}</p>
-            <button className={styles.btnClose} onClick={() => dispatch(deleteErrorActionCreator(index))}><CloseIcon /></button>
+            <button className={styles.btnClose} onClick={() => dispatch(deleteErrorAction(index))}><CloseIcon /></button>
         </div>
     )
 })

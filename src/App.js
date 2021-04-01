@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
-import { getIsAuth } from './redux/selectors/authSelector'
+import React from 'react';
+import { getIsAuth } from './redux/Authtorization/selectors/authSelector'
 import { useDispatch, useSelector } from 'react-redux';
 import "./App.css"
 import { HeaderComponent } from './components/Header/Header';
 import { NavbarComponent } from './components/Navbar/Navbar';
 import { Dashboard } from './components/Content/Dashboard/Dashboard';
-import { Route, useHistory } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { Project } from './components/Content/Project/Project';
 import { isAuthSetCookie } from './components/utils/isAuthSetCookie';
 import { ErrorsModal } from './components/utils/ErrorsModal';

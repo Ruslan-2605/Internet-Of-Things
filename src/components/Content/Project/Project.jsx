@@ -2,13 +2,11 @@ import React, { useEffect, useState } from "react";
 import styles from "../../../styles/Project.module.css";
 import { withRouter } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getActiveThingsPage, getPaginationThingsInfo, getThings } from "../../../redux/selectors/thingsSelector";
-import { getUserToken } from "../../../redux/selectors/authSelector";
-import { getPaginationThingsInfoThunkCreator, getThingsPageThunkCreator, setInitialStateActionCreator, setPageThingsActionCreator } from "../../../redux/reducers/thingsReducer";
+import { getActiveThingsPage, getPaginationThingsInfo, getThings } from "../../../redux/Things/selectors/thingsSelector";
+import { getUserToken } from "../../../redux/Authtorization/selectors/authSelector";
 import { Modal } from "../../utils/Modal"
 import { Device } from "./Device/Device";
-import { deleteProjectThunkCreator, getProjectThunkCreator, setInitialProjectViewedActionCreator } from "../../../redux/reducers/projectsReducer";
-import { getProjectViewed } from "../../../redux/selectors/projectsSelector";
+import { getProjectViewed } from "../../../redux/Dashboard/selectors/dashboardSelector";
 import SettingsIcon from '@material-ui/icons/Settings';
 import { UpdateProjectForm } from "../Dashboard/Forms/UpdateProjectForm";
 import CreateIcon from '@material-ui/icons/Create';
@@ -18,8 +16,15 @@ import { withAuthRedirect } from "../../../HOC/withAuthRedirect";
 import { CreateDeviceModal } from "./Device/Modals/CreateDeviceModal";
 import { Pagination } from "../../utils/Pagination";
 import { CreateSensorForm } from "../Project/Sensor/Forms/CreateSensorForm";
-import { setError } from "../../../redux/reducers/errorsReducer";
 import { Sensor } from "./Sensor/Sensor";
+import { setInitialProjectViewedAction } from "../../../redux/Dashboard/actions/setInitialProjectViewed";
+import { setThingsPageAction } from "../../../redux/Things/actions/setThingsPage";
+import { getThingsPaginationThunk } from "../../../redux/Things/thunks/getThingsPagination";
+import { getProjectThunk } from "../../../redux/Dashboard/thunks/getProject";
+import { getThingsPageThunk } from "../../../redux/Things/thunks/getThingsPage";
+import { deleteProjectThunk } from "../../../redux/Dashboard/thunks/deleteProject"
+import { setInitialStateAction } from "../../../redux/Things/actions/setInitialState";
+import { setErrorAction } from "../../../redux/Errors/actions/setError";
 
 export const Project = withAuthRedirect(withRouter((props) => {
 
@@ -34,27 +39,27 @@ export const Project = withAuthRedirect(withRouter((props) => {
     const paginationInfo = useSelector(getPaginationThingsInfo);
 
     useEffect(() => {
-        dispatch(getPaginationThingsInfoThunkCreator(id, token));
-        dispatch(getProjectThunkCreator(id, token));
+        dispatch(getThingsPaginationThunk(id, token));
+        dispatch(getProjectThunk(id, token));
     }, [])
 
     useEffect(() => {
         if (thingsPage > paginationInfo.pages && thingsPage !== 1) {
-            dispatch(setError({ "status": 400, "message": "Not exist page" }));
+            dispatch(setErrorAction({ "status": 400, "message": "Not exist page" }));
             if (paginationInfo.pages > 0) {
-                dispatch(setPageThingsActionCreator(1));
+                dispatch(setThingsPageAction(1));
             }
         }
         else if (paginationInfo.pages > 0) {
-            dispatch(getThingsPageThunkCreator(id, thingsPage, token));
+            dispatch(getThingsPageThunk(id, thingsPage, token));
         }
     }, [id, thingsPage, token, paginationInfo])
 
     useEffect(() => {
         //set initialState после демонтирования компоненты 
         return () => {
-            dispatch(setInitialProjectViewedActionCreator())
-            dispatch(setInitialStateActionCreator())
+            dispatch(setInitialProjectViewedAction())
+            dispatch(setInitialStateAction())
         }
     }, [])
 
@@ -68,11 +73,11 @@ export const Project = withAuthRedirect(withRouter((props) => {
     const [isCreateSensor, setCreateSensor] = useState(false);
 
     const deleteProject = (id, token) => {
-        dispatch(deleteProjectThunkCreator(id, token))
+        dispatch(deleteProjectThunk(id, token))
     }
 
     const onPageChanged = (page) => {
-        dispatch(setPageThingsActionCreator(page))
+        dispatch(setThingsPageAction(page))
     }
 
     return (
@@ -134,7 +139,7 @@ export const Project = withAuthRedirect(withRouter((props) => {
                 page={thingsPage}
                 paginationInfo={paginationInfo}
                 pathname={`/dashboard/project/${id}`}
-                setPage={setPageThingsActionCreator}
+                setPage={setThingsPageAction}
                 onPageChanged={onPageChanged}
             />
 

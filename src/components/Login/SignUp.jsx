@@ -5,8 +5,8 @@ import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { setErrorForm } from "../utils/SetErrorForm";
 import { Input } from "../utils/FormСontrollers";
-import { signUpThunkCreator } from "../../redux/reducers/authReducer";
 import { useDispatch } from "react-redux";
+import { signUpThunk } from "../../redux/Authtorization/thunks/signUp";
 
 export const SignUp = ({ setSignIn, setSignUp }) => {
 
@@ -49,7 +49,7 @@ export const SignUp = ({ setSignIn, setSignUp }) => {
     });
 
     const onSubmit = async (authData) => {
-        const status = await dispatch(signUpThunkCreator(authData, setError))
+        const status = await dispatch(signUpThunk(authData, setError))
         if (status === 200) {
             setSignUp(false);
             setSignIn(true);

@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { getIsAuth } from "../redux/selectors/authSelector";
+import { getIsAuth } from "../redux/Authtorization/selectors/authSelector";
 
 export const withAuthRedirect = (Component) => {
     const AuthRedirect = (props) => {

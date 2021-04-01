@@ -1,15 +1,15 @@
 import thunkMiddleWare from "redux-thunk";
-import { authReducer } from "./reducers/authReducer";
-import { thingsReducer } from "./reducers/thingsReducer";
-import { projectsReducer } from "./reducers/projectsReducer";
-import { errorsReducer } from "./reducers/errorsReducer";
+import { authReducer } from "./Authtorization/reducer/auth-reducer";
+import { thingsReducer } from "./Things/reducer/things-reducer";
+import { dashboardReducer } from "./Dashboard/reducer/dashboard-reducer";
+import { errorsReducer } from "./Errors/reducer/errors-reducer";
 
 
 const { createStore, combineReducers, applyMiddleware, compose } = require("redux");
 
 let reducers = combineReducers({
     auth: authReducer,
-    projects: projectsReducer,
+    projects: dashboardReducer,
     things: thingsReducer,
     errors: errorsReducer,
 });
