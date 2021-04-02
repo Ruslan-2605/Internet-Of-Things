@@ -8,6 +8,6 @@ export const getThings = (state) => {
 export const getActiveThingsPage = (state) => {
     return getDevice(state).page
 }
-export const getPaginationThingsInfo = (state) => {
+export const getPaginationThings = (state) => {
     return getDevice(state).paginationInfo
 }

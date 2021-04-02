@@ -52,7 +52,7 @@ const Icons = ({ id, token, setModal, setEditMode }) => {
 
     const [isCopy, setCopy] = useState(false);
 
-    const remove = async () => {
+    const deleteDevice = async () => {
         const status = await dispatch(deleteDeviceThunk(id, page, project, userToken))
         if (status === 200) {
             setModal(false)
@@ -69,7 +69,7 @@ const Icons = ({ id, token, setModal, setEditMode }) => {
             </div>
             <div>
                 <button onClick={() => setEditMode(true)}><EditIcon /></button>
-                <button onClick={remove}><DeleteIcon /></button>
+                <button onClick={deleteDevice}><DeleteIcon /></button>
             </div>
         </div>
     );

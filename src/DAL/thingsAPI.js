@@ -11,7 +11,7 @@ export const thingsAPI = {
     createDevice(deviceForm, token) {
         return instance
             .post(`crud/device`, deviceForm, { 'headers': { 'Authorization': token } })
-            .then((response) => response.data);
+            .then((response) => response);
     },
 
     updateDevice(deviceForm, token, id) {
@@ -38,7 +38,7 @@ export const thingsAPI = {
     createSensor(sensorForm, token) {
         return instance
             .post(`crud/sensor`, sensorForm, { 'headers': { 'Authorization': token } })
-            .then((response) => response.data);
+            .then((response) => response);
     },
 
     updateSensor(sensorForm, token, id) {

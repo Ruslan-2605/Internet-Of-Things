@@ -1,94 +1,47 @@
-.project{
-    margin: 20px 0 0 20px;
-}
-
-.things{
-    display:flex;
-    flex-wrap: wrap;
-    gap: 1em;
-    margin: 20px;
-}
-
 .projectHeader{
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    position: relative;
-    margin: 0 30px 0 10px;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+    padding: 20px 0 20px 0;
+}
+.projectInfo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
     gap: 10px;
 }
-
 .name{
     font-weight: 700;
-    font-size: 20px;
+    font-size: 30px;
     color: #b3294e;
     text-transform: uppercase;
 }
 
 .title{
-    display: flex;
-    font-size: 16px;
-    justify-content: flex-start;
-    align-items: center;
-    color: #343a40;
-    margin: 10px 30px 0 10px;
-}
-.title span{
+    font-size: 18px;
     color: #b3294e;
-    font-weight: 700;
-    margin-right: 10px;
-    font-size: 16px;
 }
-.project hr{
-    border: 1px solid rgba(0, 0, 0, 0.1)
-}
-.dropdown{
-	display: inline-block;
-	position: relative;
-}
-.dropdownMenu{
-	visibility: hidden;
-    opacity: 0;
-    transition: visibility 0.3s, opacity 0.5s linear;
-	position: absolute;
-	left: 0;
-    z-index: 3;
-}
-.dropdown:hover .dropdownMenu{
-	display: block; 
-    visibility: visible;
-    opacity: 1;   
-}
-.submenu{
-	list-style-type: none;
-}
-.submenu > li > button{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 130px;
-    color: #b3294e;
-    padding: 10px;
 
-}
-.submenu > li > button > div{
-    color: black;
-}
-.submenu > li > button:hover{
-    transition-duration: 0.5s;
-    background-color: #ffF;
-}
-.icon{
+.buttons{
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    gap: 30px;
+}
+.buttons button{
+    background-color: #f5f5f5;
     color: #b3294e;
-    width: 130px;
-    padding: 0 10px 10px 10px;
 }
-.icon div{
-   color: black;
+
+.things{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 1.5em;
 }
+
+/* .project hr{
+    border: 1px solid rgba(0, 0, 0, 0.1)
+} */

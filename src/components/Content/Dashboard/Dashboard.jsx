@@ -27,7 +27,6 @@ export const Dashboard = withAuthRedirect(() => {
 
     useEffect(() => {
         dispatch(getProjectsPageThunk(username, token, page));
-
     }, [page]);
 
     const onPageChanged = (page) => {

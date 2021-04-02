@@ -48,29 +48,29 @@ export const Pagination = ({ page, paginationInfo, pathname, onPageChanged, setP
     }, [page])
 
     return (
-        <div className={styles.paginator}>
+        <div className={styles.paginationWrapper}>
+            <div className={styles.pagination}>
+                {portionNumber > 1 ?
+                    <button onClick={() => setPortionNumber(portionNumber - 1)}><ArrowBackIcon /></button>
+                    :
+                    <button disabled><ArrowBackIcon /></button>
+                }
 
-            {portionNumber > 1 ?
-                <button onClick={() => setPortionNumber(portionNumber - 1)}><ArrowBackIcon /></button>
-                :
-                <button disabled><ArrowBackIcon /></button>
-            }
+                {pages
+                    .filter((page) => page >= leftPortionNumber && page <= rightPortionNumber)
+                    .map((page) => {
+                        return (
+                            <button key={page.toString()} onClick={() => onPageChanged(page)}
+                            >{page}</button>
+                        );
+                    })}
 
-            {pages
-                .filter((page) => page >= leftPortionNumber && page <= rightPortionNumber)
-                .map((page) => {
-                    return (
-                        <button key={page.toString()} onClick={() => onPageChanged(page)}
-                        >{page}</button>
-                    );
-                })}
-
-            {portionNumber < portionCount ?
-                <button onClick={() => setPortionNumber(portionNumber + 1)}><ArrowForwardIcon /></button>
-                :
-                <button disabled><ArrowForwardIcon /></button>
-            }
-
+                {portionNumber < portionCount ?
+                    <button onClick={() => setPortionNumber(portionNumber + 1)}><ArrowForwardIcon /></button>
+                    :
+                    <button disabled><ArrowForwardIcon /></button>
+                }
+            </div>
         </div>
     );
 };

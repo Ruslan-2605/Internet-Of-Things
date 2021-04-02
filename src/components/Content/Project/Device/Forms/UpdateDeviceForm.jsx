@@ -28,7 +28,7 @@ export const UpdateDeviceForm = ({ states, setStates, defaultName = "", id }) =>
     const { handleSubmit, register, setError, getValues, clearErrors, errors } = useForm({
         reValidateMode: "onSubmit",
         defaultValues: {
-            "name": defaultName,
+            "name": "",
             "state": "",
         },
         resolver: yupResolver(schema),

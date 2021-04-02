@@ -14,7 +14,7 @@ export const dashboardAPI = {
     createProject(projectForm, token) {
         return instance
             .post("crud/project", projectForm, { 'headers': { 'Authorization': token } })
-            .then((response) => response.data);
+            .then((response) => response);
     },
 
     deleteProject(id, token) {

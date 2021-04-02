@@ -11,7 +11,7 @@ import { getProjectViewed } from "../../../../redux/Dashboard/selectors/dashboar
 import { updateProjectThunk } from "../../../../redux/Dashboard/thunks/updateProject";
 import { ErrorsForm } from "../../../../utils/form-helpers/ErrorsForm"
 
-export const UpdateProjectForm = (props) => {
+export const UpdateProjectForm = () => {
 
     const dispatch = useDispatch()
     const token = useSelector(getUserToken)
@@ -52,9 +52,9 @@ export const UpdateProjectForm = (props) => {
     return (
         <form onSubmit={handleSubmit((projectData) => onSubmit(projectData), onError)}>
 
-            <Input register={register} type="text" placeholder="Name" name="name" />
+            <Input register={register} type="text" placeholder="Name" name="name" value={project.name} />
 
-            <Textarea register={register} type="text" placeholder="Title" name="title" />
+            <Textarea register={register} type="text" placeholder="Title" name="title" value={project.title} />
 
             <ErrorsForm errors={errors} />
 

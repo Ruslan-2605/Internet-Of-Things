@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "../../../styles/Project.module.css";
 import { withRouter } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getActiveThingsPage, getPaginationThingsInfo, getThings } from "../../../redux/Things/selectors/thingsSelector";
+import { getActiveThingsPage, getPaginationThings, getThings } from "../../../redux/Things/selectors/thingsSelector";
 import { getUserToken } from "../../../redux/Authtorization/selectors/authSelector";
 import { Modal } from "../../../utils/component-helpers/Modal"
 import { Device } from "./Device/Device";
@@ -36,7 +36,7 @@ export const Project = withAuthRedirect(withRouter((props) => {
     const token = useSelector(getUserToken);
     const things = useSelector(getThings);
     const project = useSelector(getProjectViewed);
-    const paginationInfo = useSelector(getPaginationThingsInfo);
+    const paginationInfo = useSelector(getPaginationThings);
 
     useEffect(() => {
         dispatch(getThingsPaginationThunk(id, token));
@@ -77,55 +77,27 @@ export const Project = withAuthRedirect(withRouter((props) => {
         <div className={styles.project}>
 
             <div className={styles.projectHeader}>
-                <div className={styles.name}>{project.name}</div>
-                <nav>
-                    <div className={styles.dropdown}>
-                        <div className={styles.icon}>
-                            <SettingsIcon />
-                            <div>Settings</div>
-                        </div>
-                        <div className={styles.dropdownMenu}>
-                            <ul className={styles.submenu}>
 
-                                <li>
-                                    <button onClick={() => {
-                                        setCreateDevice(true)
-                                    }}>
-                                        <AddIcon /><div>Add Device</div>
-                                    </button>
-                                </li>
+                <div className={styles.projectInfo}>
+                    <div className={styles.name}>{project.name}</div>
+                    <div className={styles.title}>{project.title}</ div >
+                </div>
 
-                                <li>
-                                    <button onClick={() => {
-                                        setCreateSensor(true)
-                                    }}>
-                                        <AddIcon /> <div>Add Sensor</div>
-                                    </button>
-                                </li>
-
-                                <li>
-                                    <button onClick={() => {
-                                        setUpdateProject(true)
-                                    }}>
-                                        <CreateIcon /> <div>Edit</div>
-                                    </button>
-                                </li>
-
-                                <li>
-                                    <button onClick={() => {
-                                        deleteProject(id, token)
-                                    }}>
-                                        <DeleteIcon /> <div>Delete</div>
-                                    </button>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-
-            <div className={styles.title}>{project.title}</ div >
+                <div className={styles.buttons}>
+                    <button onClick={() => { setCreateDevice(true) }}>
+                        <AddIcon /><div>Add Device</div>
+                    </button>
+                    <button onClick={() => { setCreateSensor(true) }}>
+                        <AddIcon /> <div>Add Sensor</div>
+                    </button>
+                    <button onClick={() => { setUpdateProject(true) }}>
+                        <CreateIcon /> <div>Edit</div>
+                    </button>
+                    <button onClick={() => { deleteProject(id, token) }}>
+                        <DeleteIcon /> <div>Delete</div>
+                    </button>
+                </div>
+            </div >
 
             <Pagination
                 page={thingsPage}
@@ -135,15 +107,7 @@ export const Project = withAuthRedirect(withRouter((props) => {
                 onPageChanged={onPageChanged}
             />
 
-            <div className={styles.things}>{things.map((thing) => {
-                if (thing.type === "device") {
-                    return <Device thing={thing} key={thing.entity.id} />
-                } else if (thing.type === "sensor") {
-                    //sensor
-                    return <Sensor thing={thing} key={thing.entity.id} />
-                }
-            })}
-            </div>
+            <Things things={things} />
 
             <CreateDeviceModal isModal={isCreateDevice} setModal={setCreateDevice} />
 
@@ -154,10 +118,23 @@ export const Project = withAuthRedirect(withRouter((props) => {
             <Modal isModal={isCreateSensor} setModal={setCreateSensor} title="Create Sensor">
                 <CreateSensorForm />
             </Modal>
-        </div >
+
+        </div>
 
     );
 }));
 
 
-
+export const Things = ({ things }) => {
+    return (
+        <div className={styles.things}>
+            {things.map((thing) => {
+                if (thing.type === "device") {
+                    return <Device thing={thing} key={thing.entity.id} />
+                } else if (thing.type === "sensor") {
+                    return <Sensor thing={thing} key={thing.entity.id} />
+                }
+            })}
+        </div>
+    )
+}

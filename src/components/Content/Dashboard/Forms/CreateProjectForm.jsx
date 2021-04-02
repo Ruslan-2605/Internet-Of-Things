@@ -17,8 +17,7 @@ export const CreateProjectForm = (props) => {
     const dispatch = useDispatch();
     const token = useSelector(getUserToken);
     const username = useSelector(getUserName);
-    const projectsLength = useSelector(getProjects).length;
-    const { elementPerPage } = useSelector(getPaginationProjects)
+    const { elementPerPage, size } = useSelector(getPaginationProjects)
 
     const schema = yup.object().shape({
         name: yup
@@ -48,8 +47,8 @@ export const CreateProjectForm = (props) => {
     };
 
     const onSubmit = async (projectData) => {
-        await dispatch(createProjectThunk(projectData, token, projectsLength, elementPerPage, setError));
-        dispatch(getProjectsPaginationThunk(username, token));
+        const status = await dispatch(createProjectThunk(projectData, token, size, elementPerPage, setError));
+        if (status === 200) dispatch(getProjectsPaginationThunk(username, token));
     };
 
     return (

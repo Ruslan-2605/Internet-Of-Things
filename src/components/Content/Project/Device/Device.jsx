@@ -9,6 +9,7 @@ export const Device = React.memo(({ thing }) => {
     // Состояние модального окна
     const [isDeviceModal, setDeviceModal] = useState(false);
 
+    // Состояние редактирование окна
     const [editMode, setEditMode] = useState(false);
 
     return (
@@ -23,24 +24,25 @@ export const Device = React.memo(({ thing }) => {
                     {thing.entity.name}
                 </div><hr />
 
-                <div>
+                <div className={styles.state}>
                     <div>{thing.entity.state}</div>
                 </div>
 
-                {!editMode
-                    ?
-                    <DeviceModal
-                        isModal={isDeviceModal}
-                        setModal={setDeviceModal}
-                        thing={thing}
-                        setEditMode={setEditMode} />
-                    :
-                    <DeviceEditModeModal
-                        isModal={isDeviceModal}
-                        setModal={setDeviceModal}
-                        thing={thing}
-                        setEditMode={setEditMode}
-                    />
+                {
+                    !editMode
+                        ?
+                        <DeviceModal
+                            isModal={isDeviceModal}
+                            setModal={setDeviceModal}
+                            thing={thing}
+                            setEditMode={setEditMode} />
+                        :
+                        <DeviceEditModeModal
+                            isModal={isDeviceModal}
+                            setModal={setDeviceModal}
+                            thing={thing}
+                            setEditMode={setEditMode}
+                        />
                 }
             </div>
         </div>
