@@ -26,7 +26,7 @@ export const dashboardAPI = {
             })
     },
 
-    updateProject(projectForm, token, id) {
+    updateProject(projectForm, id, token) {
         return instance
             .put(`crud/project/${id}`, projectForm, { 'headers': { 'Authorization': token } })
             .then((response) => response.data);

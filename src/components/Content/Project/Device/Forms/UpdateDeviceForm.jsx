@@ -53,7 +53,7 @@ export const UpdateDeviceForm = ({ states, setStates, defaultName = "", id }) =>
     };
 
     const onSubmit = (form) => {
-        dispatch(updateDeviceThunk({ ...deviceForm, "name": form.name }, userToken, id))
+        dispatch(updateDeviceThunk({ ...deviceForm, "name": form.name }, id))
     }
 
     return (

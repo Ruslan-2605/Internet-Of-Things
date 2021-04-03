@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styles from "../../../styles/Project.module.css";
-import { withRouter } from "react-router-dom";
+import { useHistory, withRouter } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getActiveThingsPage, getPaginationThings, getThings } from "../../../redux/Things/selectors/thingsSelector";
-import { getUserToken } from "../../../redux/Authtorization/selectors/authSelector";
 import { Modal } from "../../../utils/component-helpers/Modal"
 import { Device } from "./Device/Device";
 import { getProjectViewed } from "../../../redux/Dashboard/selectors/dashboardSelector";
-import SettingsIcon from '@material-ui/icons/Settings';
 import { UpdateProjectForm } from "../Dashboard/Forms/UpdateProjectForm";
 import CreateIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -23,8 +21,7 @@ import { getThingsPaginationThunk } from "../../../redux/Things/thunks/getThings
 import { getProjectThunk } from "../../../redux/Dashboard/thunks/getProject";
 import { getThingsPageThunk } from "../../../redux/Things/thunks/getThingsPage";
 import { deleteProjectThunk } from "../../../redux/Dashboard/thunks/deleteProject"
-import { setInitialStateAction } from "../../../redux/Things/actions/setInitialState";
-import { setErrorAction } from "../../../redux/Errors/actions/setError";
+import { setInitialStateThingsAction } from "../../../redux/Things/actions/setInitialStateThings";
 
 export const Project = withAuthRedirect(withRouter((props) => {
 
@@ -32,28 +29,38 @@ export const Project = withAuthRedirect(withRouter((props) => {
     let id = props.match.params.projectId;
 
     const dispatch = useDispatch();
-    const thingsPage = useSelector(getActiveThingsPage);
-    const token = useSelector(getUserToken);
-    const things = useSelector(getThings);
-    const project = useSelector(getProjectViewed);
-    const paginationInfo = useSelector(getPaginationThings);
+    const history = useHistory();
+    const [dispatchCount, setDispatchCount] = useState(0);
+    const [isFetchingThings, setFetchingThings] = useState(false);
+    const [isFetchingPage, setFetchingPage] = useState(false);
+    const page = useSelector(getActiveThingsPage);
+    const pagination = useSelector(getPaginationThings);
+    const project = useSelector(getProjectViewed)
 
-    useEffect(() => {
-        dispatch(getThingsPaginationThunk(id, token));
-        dispatch(getProjectThunk(id, token));
+    useEffect(async () => {
+        setFetchingThings(true);
+        await dispatch(getProjectThunk(id));
+        await dispatch(getThingsPaginationThunk());
+        setFetchingThings(false);
+        setDispatchCount(1);
     }, [])
 
     useEffect(() => {
-        dispatch(getThingsPageThunk(id, thingsPage, token));
-    }, [thingsPage])
-
-    useEffect(() => {
-        //set initialState после демонтирования компоненты 
+        //сброс state после демонтирования компоненты
         return () => {
-            dispatch(setInitialProjectViewedAction())
-            dispatch(setInitialStateAction())
+            dispatch(setInitialProjectViewedAction());
+            dispatch(setInitialStateThingsAction());
         }
     }, [])
+
+    useEffect(async () => {
+        if (dispatchCount === 1) {
+            setFetchingPage(true);
+            await dispatch(getThingsPageThunk())
+            setFetchingPage(false)
+        };
+    }, [page, dispatchCount])
+
 
     // Состояние модального окна Create Device 
     const [isCreateDevice, setCreateDevice] = useState(false);
@@ -64,16 +71,20 @@ export const Project = withAuthRedirect(withRouter((props) => {
     // Состояние модального окна Update Project
     const [isCreateSensor, setCreateSensor] = useState(false);
 
-    const deleteProject = (id, token) => {
-        dispatch(deleteProjectThunk(id, token))
+    const deleteProject = async (id) => {
+        const status = await dispatch(deleteProjectThunk(id));
+        if (status === 200) {
+            history.push("/dashboard")
+        }
     }
 
     const onPageChanged = (page) => {
         dispatch(setThingsPageAction(page))
     }
 
-    return (
+    if (isFetchingThings) return <div>Loading...</div>
 
+    return (
         <div className={styles.project}>
 
             <div className={styles.projectHeader}>
@@ -93,21 +104,21 @@ export const Project = withAuthRedirect(withRouter((props) => {
                     <button onClick={() => { setUpdateProject(true) }}>
                         <CreateIcon /> <div>Edit</div>
                     </button>
-                    <button onClick={() => { deleteProject(id, token) }}>
+                    <button onClick={() => { deleteProject(id) }}>
                         <DeleteIcon /> <div>Delete</div>
                     </button>
                 </div>
             </div >
 
             <Pagination
-                page={thingsPage}
-                paginationInfo={paginationInfo}
+                page={page}
+                pagination={pagination}
                 pathname={`/dashboard/project/${id}`}
                 setPage={setThingsPageAction}
                 onPageChanged={onPageChanged}
             />
 
-            <Things things={things} />
+            <Things isFetchingPage={isFetchingPage} />
 
             <CreateDeviceModal isModal={isCreateDevice} setModal={setCreateDevice} />
 
@@ -125,7 +136,12 @@ export const Project = withAuthRedirect(withRouter((props) => {
 }));
 
 
-export const Things = ({ things }) => {
+export const Things = ({ isFetchingPage }) => {
+
+    const things = useSelector(getThings);
+
+    if (isFetchingPage) return <div>Loading...</div>
+
     return (
         <div className={styles.things}>
             {things.map((thing) => {

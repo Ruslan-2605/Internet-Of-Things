@@ -4,10 +4,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
-import { useDispatch, useSelector } from "react-redux";
-import { getActiveThingsPage } from "../../../../../redux/Things/selectors/thingsSelector";
-import { getProjectViewed } from "../../../../../redux/Dashboard/selectors/dashboardSelector";
-import { getUserToken } from "../../../../../redux/Authtorization/selectors/authSelector";
+import { useDispatch } from "react-redux";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { getTextIsCopied } from "../../../../../utils/component-helpers/getTextIsCopied";
 import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
@@ -46,14 +43,10 @@ const Icons = ({ id, token, setModal, setEditMode }) => {
 
     const dispatch = useDispatch();
 
-    const page = useSelector(getActiveThingsPage);
-    const project = useSelector(getProjectViewed).id; //project id
-    const userToken = useSelector(getUserToken);
-
     const [isCopy, setCopy] = useState(false);
 
     const deleteDevice = async () => {
-        const status = await dispatch(deleteDeviceThunk(id, page, project, userToken))
+        const status = await dispatch(deleteDeviceThunk(id))
         if (status === 200) {
             setModal(false)
         }

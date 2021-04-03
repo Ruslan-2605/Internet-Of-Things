@@ -6,7 +6,7 @@ const CREATE_DEVICE = "CREATE-DEVICE";
 const UPDATE_DEVICE = "UPDATE-DEVICE";
 const SET_PAGE_THINGS = "SET-PAGE-THINGS";
 const SET_DEVICE_STATE = "SET-DEVICE-STATE";
-const SET_INITIAL_STATE = "SET-INITIAL-STATE";
+const SET_INITIAL_STATE_THINGS = "SET-INITIAL-STATE-THINGS";
 const SET_THINGS_PAGINATION = "SET-THINGS-PAGINATION";
 const CREATE_SENSOR = "CREATE-SENSOR";
 const UPDATE_SENSOR = "UPDATE-SENSOR";
@@ -16,7 +16,7 @@ const LOGOUT = "LOGOUT";
 const initialState = {
     things: [],
     page: 1,
-    paginationInfo: {},
+    pagination: {},
     sensorPieceValues: []
 };
 
@@ -64,7 +64,7 @@ export const thingsReducer = (state = initialState, action) => {
         case SET_THINGS_PAGINATION:
             return {
                 ...state,
-                paginationInfo: action.data,
+                pagination: action.data,
             };
 
         case CREATE_SENSOR:
@@ -85,7 +85,7 @@ export const thingsReducer = (state = initialState, action) => {
                 sensorPieceValues: action.data
             }
 
-        case SET_INITIAL_STATE:
+        case SET_INITIAL_STATE_THINGS:
             return initialState;
 
         case LOGOUT:

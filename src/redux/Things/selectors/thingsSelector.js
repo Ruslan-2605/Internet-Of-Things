@@ -9,5 +9,5 @@ export const getActiveThingsPage = (state) => {
     return getDevice(state).page
 }
 export const getPaginationThings = (state) => {
-    return getDevice(state).paginationInfo
+    return getDevice(state).pagination
 }

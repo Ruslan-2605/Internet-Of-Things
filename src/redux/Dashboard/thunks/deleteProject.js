@@ -1,12 +1,14 @@
 import { setErrors } from "../../../utils/redux-helpers/setErrors";
 import { dashboardAPI } from "../../../DAL/dashboardAPI";
+import { getUserToken } from "../../Authtorization/selectors/authSelector";
 
-export const deleteProjectThunk = (id, token) => {
-    return async (dispatch) => {
+export const deleteProjectThunk = (id) => {
+    return async (dispatch, getState) => {
         try {
+            const state = getState();
+            const token = getUserToken(state);
             const response = await dashboardAPI.deleteProject(id, token);
-            // Если перенесешь кнопку делете, то нужно сделать getProjectsPage
-            return response
+            return response.status
         } catch (error) {
             setErrors(error, dispatch)
         }

@@ -8,11 +8,12 @@ const SET_VIEWED_PROJECT = "SET-VIEWED-PROJECT";
 const SET_PROJECTS_PAGINATION = "SET-PROJECTS-PAGINATION";
 const SET_PAGE_PROJECTS = "SET-PAGE-PROJECTS";
 const SET_INITIAL_PROJECT_VIEWED = "SET-INITIAL-PROJECT-VIEWED";
+const SET_INITIAL_STATE_DASHBOARD = "SET-INITIAL-STATE-DASHBOARD";
 const LOGOUT = "LOGOUT";
 
 const initialState = {
     page: 1,
-    paginationInfo: {},
+    pagination: {},
     projects: [],
     projectViewed: {},
     iconSelected: 1,
@@ -57,7 +58,7 @@ export const dashboardReducer = (state = initialState, action) => {
         case SET_PROJECTS_PAGINATION:
             return {
                 ...state,
-                paginationInfo: action.data,
+                pagination: action.data,
             };
 
         case SET_PAGE_PROJECTS:
@@ -71,6 +72,9 @@ export const dashboardReducer = (state = initialState, action) => {
                 ...state,
                 projectViewed: {}
             };
+
+        case SET_INITIAL_STATE_DASHBOARD:
+            return initialState;
 
         case LOGOUT:
             return initialState;

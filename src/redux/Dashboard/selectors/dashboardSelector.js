@@ -1,5 +1,5 @@
 const getProject = (state) => {
-    return state.projects
+    return state.dashboard
 }
 
 export const getActiveProjectsPage = (state) => {
@@ -12,7 +12,7 @@ export const getIconSelected = (state) => {
     return getProject(state).iconSelected
 }
 export const getPaginationProjects = (state) => {
-    return getProject(state).paginationInfo
+    return getProject(state).pagination
 }
 export const getProjectViewed = (state) => {
     return getProject(state).projectViewed

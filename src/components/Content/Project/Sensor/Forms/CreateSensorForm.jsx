@@ -6,19 +6,14 @@ import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import styles from "../../../../../styles/Form.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserToken } from "../../../../../redux/Authtorization/selectors/authSelector";
 import { getProjectViewed } from "../../../../../redux/Dashboard/selectors/dashboardSelector";
-import { getPaginationThings, getThings } from "../../../../../redux/Things/selectors/thingsSelector";
 import { createSensorThunk } from "../../../../../redux/Things/thunks/createSensor";
 import { ErrorsForm } from "../../../../../utils/form-helpers/ErrorsForm";
-import { getThingsPaginationThunk } from "../../../../../redux/Things/thunks/getThingsPagination"
 
 export const CreateSensorForm = () => {
 
     const dispatch = useDispatch();
-    const token = useSelector(getUserToken);
     const project = useSelector(getProjectViewed).id;
-    const { elementPerPage, size } = useSelector(getPaginationThings)
 
     const schema = yup.object().shape({
         name: yup
@@ -43,9 +38,8 @@ export const CreateSensorForm = () => {
         setErrorForm(e, setError);
     };
 
-    const onSubmit = async (sensorForm) => {
-        const status = await dispatch(createSensorThunk({ ...sensorForm, "project": project }, token, size, elementPerPage, setError));
-        if (status === 200) dispatch(getThingsPaginationThunk(project, token));
+    const onSubmit = (sensorForm) => {
+        dispatch(createSensorThunk({ ...sensorForm, "project": project }, setError));
     };
 
     return (

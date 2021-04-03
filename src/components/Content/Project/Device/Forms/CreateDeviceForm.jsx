@@ -6,14 +6,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import styles from "../../../../../styles/DeviceForm.module.css";
 import AddIcon from '@material-ui/icons/Add';
 import { useDispatch, useSelector } from "react-redux";
-import { getUserId, getUserToken } from "../../../../../redux/Authtorization/selectors/authSelector";
-import { getPaginationThings, getThings } from "../../../../../redux/Things/selectors/thingsSelector";
+import { getUserToken } from "../../../../../redux/Authtorization/selectors/authSelector";
+import { getPaginationThings } from "../../../../../redux/Things/selectors/thingsSelector";
 import { getProjectViewed } from "../../../../../redux/Dashboard/selectors/dashboardSelector";
 import { deviceStateValidation } from "../../../../../utils/form-helpers/deviceStateValidation";
 import { ErrorsForm } from "../../../../../utils/form-helpers/ErrorsForm.jsx";
 import { createDeviceThunk } from "../../../../../redux/Things/thunks/createDevice";
 import { useFluxForm } from "../../../../../hooks/useFluxForm"
-import { getThingsPaginationThunk } from "../../../../../redux/Things/thunks/getThingsPagination"
 
 export const CreateDeviceForm = ({ states, setStates, defaultState }) => {
 
@@ -60,12 +59,8 @@ export const CreateDeviceForm = ({ states, setStates, defaultState }) => {
         deviceStateValidation(value, states, setStates, setError)
     };
 
-    const onSubmit = async (form) => {
-        const status = await dispatch(
-            createDeviceThunk({ ...deviceForm, "project": project, "name": form.name },
-                token, size, elementPerPage, setError
-            ))
-        if (status === 200) dispatch(getThingsPaginationThunk(project, token))
+    const onSubmit = (form) => {
+        dispatch(createDeviceThunk({ ...deviceForm, "project": project, "name": form.name }, setError));
     }
 
     return (

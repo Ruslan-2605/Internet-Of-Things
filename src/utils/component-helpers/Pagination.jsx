@@ -6,12 +6,13 @@ import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import * as queryString from "query-string";
 import { setErrorAction } from "../../redux/Errors/actions/setError";
+import { getThingsPageThunk } from "../../redux/Things/thunks/getThingsPage";
 
-export const Pagination = ({ page, paginationInfo, pathname, onPageChanged, setPage }) => {
+export const Pagination = ({ page, pagination, pathname, onPageChanged, setPage }) => {
 
     const history = useHistory();
     const dispatch = useDispatch();
-    const countPage = paginationInfo.pages;
+    const countPage = pagination.pages;
 
     const pages = [];
     for (let i = 1; i <= countPage; i++) {
@@ -27,15 +28,11 @@ export const Pagination = ({ page, paginationInfo, pathname, onPageChanged, setP
         const parsed = queryString.parse(history.location.search);
         let actualPage = page;
         if (!!parsed.page) actualPage = Number(parsed.page)
-        dispatch(setPage(actualPage))
-        // if actualPage > countPage || !isNaN(actualPage){
-        //  нужно добавить после того как сделаю инициализацию приложения
-        // }
-        // if (!isNaN(actualPage)) {
-        //     dispatch(setPage(actualPage))
-        // } else {
-        //     dispatch(setErrorAction({ "status": 400, "message": "Not exist page" }))
-        // }
+        if (actualPage > countPage || actualPage < 1 || isNaN(actualPage)) {
+            dispatch(setErrorAction({ "status": 400, "message": "Not exist page" }))
+        } else {
+            dispatch(setPage(actualPage))
+        }
     }, [])
 
     useEffect(() => {

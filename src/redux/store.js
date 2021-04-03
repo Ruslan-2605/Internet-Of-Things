@@ -9,7 +9,7 @@ const { createStore, combineReducers, applyMiddleware, compose } = require("redu
 
 let reducers = combineReducers({
     auth: authReducer,
-    projects: dashboardReducer,
+    dashboard: dashboardReducer,
     things: thingsReducer,
     errors: errorsReducer,
 });

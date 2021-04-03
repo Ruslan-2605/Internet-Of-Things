@@ -6,7 +6,6 @@ import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import styles from "../../../../styles/Form.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserToken } from "../../../../redux/Authtorization/selectors/authSelector";
 import { getProjectViewed } from "../../../../redux/Dashboard/selectors/dashboardSelector";
 import { updateProjectThunk } from "../../../../redux/Dashboard/thunks/updateProject";
 import { ErrorsForm } from "../../../../utils/form-helpers/ErrorsForm"
@@ -14,9 +13,7 @@ import { ErrorsForm } from "../../../../utils/form-helpers/ErrorsForm"
 export const UpdateProjectForm = () => {
 
     const dispatch = useDispatch()
-    const token = useSelector(getUserToken)
     const project = useSelector(getProjectViewed)
-    const id = project.id
 
     const schema = yup.object().shape({
         name: yup
@@ -46,7 +43,7 @@ export const UpdateProjectForm = () => {
     };
 
     const onSubmit = (projectData) => {
-        dispatch(updateProjectThunk(projectData, token, id, setError));
+        dispatch(updateProjectThunk(projectData, setError));
     };
 
     return (
