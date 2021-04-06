@@ -6,7 +6,6 @@ import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import * as queryString from "query-string";
 import { setErrorAction } from "../../redux/Errors/actions/setError";
-import { getThingsPageThunk } from "../../redux/Things/thunks/getThingsPage";
 
 export const Pagination = ({ page, pagination, pathname, onPageChanged, setPage }) => {
 
@@ -27,12 +26,14 @@ export const Pagination = ({ page, pagination, pathname, onPageChanged, setPage 
     useEffect(() => {
         const parsed = queryString.parse(history.location.search);
         let actualPage = page;
-        if (!!parsed.page) actualPage = Number(parsed.page)
+        if (Boolean(parsed.page)) actualPage = Number(parsed.page);
+
         if (actualPage > countPage || actualPage < 1 || isNaN(actualPage)) {
-            dispatch(setErrorAction({ "status": 400, "message": "Not exist page" }))
+            if (actualPage !== 1) dispatch(setErrorAction({ "status": 400, "message": "Not found page" }))
         } else {
             dispatch(setPage(actualPage))
         }
+
     }, [])
 
     useEffect(() => {
@@ -45,29 +46,32 @@ export const Pagination = ({ page, pagination, pathname, onPageChanged, setPage 
     }, [page])
 
     return (
-        <div className={styles.paginationWrapper}>
-            <div className={styles.pagination}>
-                {portionNumber > 1 ?
-                    <button onClick={() => setPortionNumber(portionNumber - 1)}><ArrowBackIcon /></button>
-                    :
-                    <button disabled><ArrowBackIcon /></button>
-                }
+        <>
+            {pagination.pages > 1 &&
+                <div className={styles.paginationWrapper}>
+                    <div className={styles.pagination}>
+                        {portionNumber > 1 ?
+                            <button onClick={() => setPortionNumber(portionNumber - 1)}><ArrowBackIcon /></button>
+                            :
+                            <button disabled><ArrowBackIcon /></button>
+                        }
 
-                {pages
-                    .filter((page) => page >= leftPortionNumber && page <= rightPortionNumber)
-                    .map((page) => {
-                        return (
-                            <button key={page.toString()} onClick={() => onPageChanged(page)}
-                            >{page}</button>
-                        );
-                    })}
+                        {pages
+                            .filter((page) => page >= leftPortionNumber && page <= rightPortionNumber)
+                            .map((page) => {
+                                return (
+                                    <button key={page.toString()} onClick={() => onPageChanged(page)}
+                                    >{page}</button>
+                                );
+                            })}
 
-                {portionNumber < portionCount ?
-                    <button onClick={() => setPortionNumber(portionNumber + 1)}><ArrowForwardIcon /></button>
-                    :
-                    <button disabled><ArrowForwardIcon /></button>
-                }
-            </div>
-        </div>
+                        {portionNumber < portionCount ?
+                            <button onClick={() => setPortionNumber(portionNumber + 1)}><ArrowForwardIcon /></button>
+                            :
+                            <button disabled><ArrowForwardIcon /></button>
+                        }
+                    </div>
+                </div>}
+        </>
     );
 };

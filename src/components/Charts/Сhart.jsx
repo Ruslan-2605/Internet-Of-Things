@@ -3,7 +3,7 @@ import { scaleTime, scaleLinear } from '@visx/scale';
 import { timeFormat } from "d3-time-format";
 import { useData } from './useData';
 import { AxisLeft, AxisBottom } from '@visx/axis';
-import { GridRows, GridColumns } from '@visx/grid';
+import { GridRows } from '@visx/grid';
 import { Marks } from './Marks';
 import styles from "../../styles/Chart.module.css";
 import { extent } from 'd3-array';
@@ -27,6 +27,7 @@ export const Chart = ({ containerRef }) => {
             arr.push(xAxisTickFormat(d.time));
             return true
         }
+        return false
     })
 
     const innerHeight = height - margin.top - margin.bottom;

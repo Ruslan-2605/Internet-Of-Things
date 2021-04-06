@@ -16,7 +16,7 @@ export const deviceStateValidation = (value, states, setStates, setError) => {
         });
     } else {
         let countDuplicates = 0;
-        states.map((state) => {
+        states.forEach((state) => {
             if (state === value) {
                 countDuplicates += 1;
             }

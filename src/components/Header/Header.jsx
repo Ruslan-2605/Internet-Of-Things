@@ -25,7 +25,7 @@ export const HeaderTitle = () => {
     return (
         <div className={styles.title}>
             <div className={styles.logo}><HomeWorkIcon /></div>
-            <div className={styles.text}>IOT</div>
+            <div className={styles.text}>IoT</div>
         </div>
     )
 }

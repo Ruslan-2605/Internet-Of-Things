@@ -11,22 +11,34 @@ import { getProjectsPageThunk } from "../../../redux/Dashboard/thunks/getProject
 import { setProjectsPageAction } from "../../../redux/Dashboard/actions/setProjectsPage";
 import { getProjectsPaginationThunk } from "../../../redux/Dashboard/thunks/getProjectsPagination";
 import { setInitialStateDashboardAction } from "../../../redux/Dashboard/actions/setInitialStateDashboard";
+import { Preloader } from "../../../utils/component-helpers/Preloader";
 
 export const Dashboard = withAuthRedirect(() => {
 
     const dispatch = useDispatch();
     const [dispatchCount, setDispatchCount] = useState(0);
-    const [isFetchingDashboard, setFetchingDashboard] = useState(false);
-    const [isFetchingPage, setFetchingPage] = useState(false);
+    const [isFetching, setFetching] = useState(true);
     const page = useSelector(getActiveProjectsPage);
     const pagination = useSelector(getPaginationProjects);
 
-    useEffect(async () => {
-        setFetchingDashboard(true);
-        await dispatch(getProjectsPaginationThunk())
-        setFetchingDashboard(false)
-        setDispatchCount(1);
+    useEffect(() => {
+        (async () => {
+            if (!isFetching) setFetching(true);
+            await dispatch(getProjectsPaginationThunk())
+            setDispatchCount(1);
+        })()
     }, [])
+
+    useEffect(() => {
+        (async () => {
+            if (dispatchCount === 1 && pagination.pages >= 1) {
+                await dispatch(getProjectsPageThunk());
+                setFetching(false);
+            } else if (dispatchCount === 1 && pagination.pages < 1) {
+                setFetching(false);
+            }
+        })()
+    }, [page, dispatchCount]);
 
     useEffect(() => {
         //сброс state после демонтирования компоненты
@@ -35,24 +47,14 @@ export const Dashboard = withAuthRedirect(() => {
         }
     }, [])
 
-    useEffect(async () => {
-        if (dispatchCount === 1) {
-            setFetchingPage(true);
-            await dispatch(getProjectsPageThunk());
-            setFetchingPage(false);
-        }
-    }, [page, dispatchCount]);
-
     const onPageChanged = (page) => {
         dispatch(setProjectsPageAction(page))
     }
 
-    if (isFetchingDashboard) return <div>Loading...</div>
+    if (isFetching) return <Preloader />
 
     return (
-
         <div className={styles.dashboard}>
-
             <Pagination
                 page={page}
                 pagination={pagination}
@@ -61,19 +63,17 @@ export const Dashboard = withAuthRedirect(() => {
                 onPageChanged={onPageChanged}
             />
 
-            <Projects isFetchingPage={isFetchingPage} />
+            <Projects />
         </div >
     );
 });
 
-export const Projects = ({ isFetchingPage }) => {
+export const Projects = () => {
 
     const projects = useSelector(getProjects);
 
     // Состояние модального окна
     const [isCreateProject, setCreateProject] = useState(false);
-
-    if (isFetchingPage) return <div>Loading...</div>
 
     return (
         <div className={styles.projects}>

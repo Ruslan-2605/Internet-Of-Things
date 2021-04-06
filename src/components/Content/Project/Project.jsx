@@ -22,6 +22,7 @@ import { getProjectThunk } from "../../../redux/Dashboard/thunks/getProject";
 import { getThingsPageThunk } from "../../../redux/Things/thunks/getThingsPage";
 import { deleteProjectThunk } from "../../../redux/Dashboard/thunks/deleteProject"
 import { setInitialStateThingsAction } from "../../../redux/Things/actions/setInitialStateThings";
+import { Preloader } from "../../../utils/component-helpers/Preloader";
 
 export const Project = withAuthRedirect(withRouter((props) => {
 
@@ -31,19 +32,30 @@ export const Project = withAuthRedirect(withRouter((props) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const [dispatchCount, setDispatchCount] = useState(0);
-    const [isFetchingThings, setFetchingThings] = useState(false);
-    const [isFetchingPage, setFetchingPage] = useState(false);
+    const [isFetching, setFetching] = useState(true);
     const page = useSelector(getActiveThingsPage);
     const pagination = useSelector(getPaginationThings);
-    const project = useSelector(getProjectViewed)
+    const project = useSelector(getProjectViewed);
 
-    useEffect(async () => {
-        setFetchingThings(true);
-        await dispatch(getProjectThunk(id));
-        await dispatch(getThingsPaginationThunk());
-        setFetchingThings(false);
-        setDispatchCount(1);
+    useEffect(() => {
+        (async () => {
+            if (!isFetching) setFetching(true);
+            await dispatch(getProjectThunk(id));
+            await dispatch(getThingsPaginationThunk());
+            setDispatchCount(2);
+        })()
     }, [])
+
+    useEffect(() => {
+        (async () => {
+            if (dispatchCount === 2 && pagination.pages >= 1) {
+                await dispatch(getThingsPageThunk())
+                setFetching(false);
+            } else if (dispatchCount === 2 && pagination.pages < 1) {
+                setFetching(false);
+            }
+        })()
+    }, [page, dispatchCount])
 
     useEffect(() => {
         //сброс state после демонтирования компоненты
@@ -52,14 +64,6 @@ export const Project = withAuthRedirect(withRouter((props) => {
             dispatch(setInitialStateThingsAction());
         }
     }, [])
-
-    useEffect(async () => {
-        if (dispatchCount === 1) {
-            setFetchingPage(true);
-            await dispatch(getThingsPageThunk())
-            setFetchingPage(false)
-        };
-    }, [page, dispatchCount])
 
 
     // Состояние модального окна Create Device 
@@ -82,7 +86,7 @@ export const Project = withAuthRedirect(withRouter((props) => {
         dispatch(setThingsPageAction(page))
     }
 
-    if (isFetchingThings) return <div>Loading...</div>
+    if (isFetching) return <Preloader />
 
     return (
         <div className={styles.project}>
@@ -118,7 +122,7 @@ export const Project = withAuthRedirect(withRouter((props) => {
                 onPageChanged={onPageChanged}
             />
 
-            <Things isFetchingPage={isFetchingPage} />
+            <Things />
 
             <CreateDeviceModal isModal={isCreateDevice} setModal={setCreateDevice} />
 
@@ -136,11 +140,9 @@ export const Project = withAuthRedirect(withRouter((props) => {
 }));
 
 
-export const Things = ({ isFetchingPage }) => {
+export const Things = () => {
 
     const things = useSelector(getThings);
-
-    if (isFetchingPage) return <div>Loading...</div>
 
     return (
         <div className={styles.things}>

@@ -111,7 +111,7 @@ const State = ({ state, activeState, token, isDisabled, setDisabled }) => {
             setFethcing(false);
             setDisabled(false);
         }
-        else if (state == activeState) {
+        else if (state === activeState) {
             dispatch(setErrorAction({ "status": 400, "message": "State is active" }))
         }
         else if (isDisabled) {

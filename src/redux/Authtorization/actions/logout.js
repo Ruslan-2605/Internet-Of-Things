@@ -6,6 +6,7 @@ export const logoutAction = () => {
         ["username", "token"].map(
             (name) => {
                 Cookies.remove(name);
+                return
             }
         );
     }

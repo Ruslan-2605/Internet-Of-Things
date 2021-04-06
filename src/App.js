@@ -8,7 +8,7 @@ import { Dashboard } from './components/Content/Dashboard/Dashboard';
 import { Route } from 'react-router-dom';
 import { Project } from './components/Content/Project/Project';
 import { isAuthSetCookie } from './utils/component-helpers/isAuthSetCookie';
-import { Chart } from './components/Charts/Сhart';
+// import { Chart } from './components/Charts/Сhart';
 import { ErrorsModal } from './utils/component-helpers/ErrorsModal';
 
 export const App = () => {

@@ -13,6 +13,7 @@ export const getThingsPaginationThunk = () => {
 
             const response = await thingsAPI.getPaginationInfo(project, token);
             dispatch(setThingsPaginationAction(response))
+            return response.pages
         } catch (error) {
             setErrors(error, dispatch)
         }

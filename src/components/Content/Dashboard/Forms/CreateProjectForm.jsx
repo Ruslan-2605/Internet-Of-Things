@@ -5,18 +5,13 @@ import { setErrorForm } from "../../../../utils/form-helpers/SetErrorForm";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import styles from "../../../../styles/Form.module.css";
-import { getUserName, getUserToken } from "../../../../redux/Authtorization/selectors/authSelector";
 import { createProjectThunk } from "../../../../redux/Dashboard/thunks/createProject";
-import { getProjectsPaginationThunk } from "../../../../redux/Dashboard/thunks/getProjectsPagination";
-import { useDispatch, useSelector } from "react-redux";
-import { getPaginationProjects, getProjects } from "../../../../redux/Dashboard/selectors/dashboardSelector";
+import { useDispatch } from "react-redux";
 import { ErrorsForm } from "../../../../utils/form-helpers/ErrorsForm"
 
-export const CreateProjectForm = (props) => {
+export const CreateProjectForm = () => {
 
     const dispatch = useDispatch();
-    const token = useSelector(getUserToken);
-    const username = useSelector(getUserName);
 
     const schema = yup.object().shape({
         name: yup

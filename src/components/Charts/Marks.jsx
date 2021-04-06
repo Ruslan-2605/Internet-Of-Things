@@ -1,7 +1,6 @@
 import { curveCatmullRom } from '@visx/curve';
 import styles from "../../styles/Chart.module.css";
 import { LinePath } from '@visx/shape';
-import { useState } from 'react';
 
 export const Marks = ({
     data,
