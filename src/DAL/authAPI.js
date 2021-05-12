@@ -7,7 +7,6 @@ export const authAPI = {
         return instance
             .post('auth/signIn', authData)
             .then((response) => {
-                debugger
                 if (response.status === 200) {
                     Cookies.set("username", response.data.username,
                         { expires: response.data.tokenValidity / 86400000 });

@@ -10,11 +10,11 @@
 }
 
 .deviceInfo{
-    margin: 15px;
+    margin: 10px;
 }
 
 .deviceInfo hr{
-    border: 1px solid rgba(0, 0, 0, 0.1)
+    border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .name{
@@ -28,8 +28,8 @@
 }
 .openInModal{
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 10px;
+    right: 10px;
     background-color: #fff;
 }
 .state{
@@ -39,4 +39,7 @@
     justify-content: center;
     align-items: center;
     font-size: 20px;
+}
+.mini_chart{
+    height: 80px;
 }

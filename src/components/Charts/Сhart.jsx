@@ -1,20 +1,24 @@
 import React from 'react';
 import { scaleTime, scaleLinear } from '@visx/scale';
 import { timeFormat } from "d3-time-format";
-import { useData } from './useData';
 import { AxisLeft, AxisBottom } from '@visx/axis';
 import { GridRows } from '@visx/grid';
 import { Marks } from './Marks';
 import styles from "../../styles/Chart.module.css";
 import { extent } from 'd3-array';
+import { getSensorPieceValues } from '../../redux/Things/selectors/thingsSelector';
+import { useSelector } from 'react-redux';
+import { useData } from "./useData";
 
-const width = 960;
-const height = 500;
-const margin = { top: 20, right: 0, bottom: 90, left: 100 };
+const width = document.body.clientWidth - 80;
+const height = document.body.clientHeight - 150;
+const margin = { top: 20, right: 20, bottom: 40, left: 40 };
 
-export const Chart = ({ containerRef }) => {
+export const Chart = () => {
 
-    const data = useData();
+    const data = useSelector(getSensorPieceValues);
+    // const data = useData();
+
     if (!data) {
         return <pre>Loading...</pre>;
     }
@@ -34,7 +38,6 @@ export const Chart = ({ containerRef }) => {
     const innerWidth = width - margin.left - margin.right;
 
     const xValue = d => d.time;
-
     const yValue = d => d.value;
 
     const xScale = scaleTime({
@@ -62,15 +65,15 @@ export const Chart = ({ containerRef }) => {
                         scale={xScale}
                         tickFormat={xAxisTickFormat}
                         tickValues={axisBottomTickValue.map(d => d.time)}
-                        label="Time"
-                        labelClassName={styles.axisLabel}
-                        labelOffset={40}
+                    // label="Time"
+                    // labelClassName={styles.axisLabel}
+                    // labelOffset={40}
                     />
                     <AxisLeft
                         scale={yScale}
-                        label="Value"
-                        labelClassName={styles.axisLabel}
-                        labelOffset={50}
+                    // label="Value"
+                    // labelClassName={styles.axisLabel}
+                    // labelOffset={50}
                     />
                     <Marks
                         margin={margin}

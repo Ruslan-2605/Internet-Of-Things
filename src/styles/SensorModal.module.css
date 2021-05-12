@@ -1,0 +1,77 @@
+.modalWrapper.open{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+.modalWrapper.close{
+    display:none;
+}
+.modalBody{
+    position: relative;
+    background-color: #fff;
+    overflow-y: auto;   
+    margin: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+}
+.title{
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #b3294e;
+    font-size: 18px;  
+    color: #fff;
+    text-transform: capitalize;
+ }
+.btnClose{
+    position: absolute;
+    top: 9px;
+    right: 10px;
+    color: #fff;
+    background-color: #b3294e;
+}
+.datePickerWrapper{
+    max-width: 300px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.datePicker{
+    display: flex;
+    border: #C2C2C2 solid 1px;
+    border-radius: 3px;
+}
+.datePicker input:focus{
+    border: #b3294e solid 1px;
+}
+.datePicker input{
+    padding: 3px;
+    width: 100px;
+    height: 25px;
+}
+.btnChart{
+    /* border: 1px solid #b3294e; */
+    background-color: #fff;
+    color: #b3294e;
+    border: 1px solid #b3294e;
+    border-radius: 3px;
+    padding: 3px;
+    width: 60px;
+    font-weight: 600;
+}
+.btnChart:hover{
+    background-color: #b3294e;
+    color: #fff;
+}
+.content{
+    margin: 15px 20px;
+}

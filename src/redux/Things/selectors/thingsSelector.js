@@ -11,3 +11,6 @@ export const getActiveThingsPage = (state) => {
 export const getPaginationThings = (state) => {
     return getDevice(state).pagination
 }
+export const getSensorPieceValues = (state) => {
+    return getDevice(state).sensorPieceValues
+}
